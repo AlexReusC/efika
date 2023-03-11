@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import TabNavigation from './src/routes/tabNavigation';
 
 const App: React.FC = () => (
-  <View>
-    <Text>Hello world</Text>
-  </View>
+  <NavigationContainer>
+    <TabNavigation></TabNavigation>
+  </NavigationContainer>
 );
 
 export default App;
