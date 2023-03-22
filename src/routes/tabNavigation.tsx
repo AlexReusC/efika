@@ -2,9 +2,9 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
-import Home from "../views/home/home";
 import Progress from "../views/progress/progress";
 import Settings from "../views/settings/settings";
+import HomeNavigation from "./homeNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -14,7 +14,7 @@ const TabNavigation = () => {
     <Tab.Navigator initialRouteName="Home" screenOptions={{ tabBarActiveTintColor: "black" }}>
       <Tab.Screen
         name={t("navigation:Home")}
-        component={Home}
+        component={HomeNavigation}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => <Ionicons name={focused ? "home" : "home-outline"} />,

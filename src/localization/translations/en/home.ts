@@ -1,5 +1,5 @@
 export default {
-  Ready: "Ready",
-  "to continue?": "to continue",
-  "Active Goals": "Active Goals",
+  ready: "Ready",
+  toContinue: "to continue",
+  activeGoals: "Active Goals",
 };

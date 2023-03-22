@@ -1,5 +1,5 @@
 export default {
-  Ready: "¿Listo",
-  "to continue?": "para continuar?",
-  "Active Goals": "Metas activas",
+  ready: "¿Listo",
+  toContinue: "para continuar?",
+  activeGoals: "Metas activas",
 };
