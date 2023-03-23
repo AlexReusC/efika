@@ -4,14 +4,18 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import homeStyle from "./homeStyle";
 import { StackHomeNavigation } from "../../routes/homeNavigation";
+
+import type { RootState } from "../../state/store";
 
 type homeNavigationProp = StackNavigationProp<StackHomeNavigation>;
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<homeNavigationProp>();
+  const count = useSelector((state: RootState) => state.goals.value);
 
   return (
     <View style={homeStyle.screen}>
@@ -34,6 +38,7 @@ const Home: React.FC = () => {
         </View>
         <View style={homeStyle.goalsSectionCards}>
           <Text>Card</Text>
+          <Text>{count}</Text>
         </View>
       </View>
     </View>
