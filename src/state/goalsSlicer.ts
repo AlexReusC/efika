@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface GoalsState {
   value: number[];
@@ -15,9 +15,12 @@ export const goalsSlice = createSlice({
     create: (state) => {
       state.value.push(1);
     },
+    deleteAll: (state) => {
+      state.value = [];
+    },
   },
 });
 
-export const { create } = goalsSlice.actions;
+export const { create, deleteAll } = goalsSlice.actions;
 
 export default goalsSlice.reducer;
