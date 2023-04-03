@@ -1,5 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import Colors from "../../constants/colors";
+
+const heightScreen = Dimensions.get("window").height;
+const heightCardCarousel = heightScreen * 0.4;
 
 const homeStyle = StyleSheet.create({
   screen: {
@@ -21,13 +24,16 @@ const homeStyle = StyleSheet.create({
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
     paddingHorizontal: "7%",
-    paddingTop: "10%",
   },
   goalsSectionText: {
+    height: "20%",
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
   },
-  goalsSectionCards: {},
+  goalsSectionCards: {
+    height: "80%",
+  },
 });
 
 export default homeStyle;

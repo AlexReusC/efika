@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StatusBar, TouchableOpacity } from "react-native";
+import { View, Text, StatusBar, TouchableOpacity, ScrollView } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -9,6 +9,9 @@ import homeStyle from "./homeStyle";
 import { StackHomeNavigation } from "../../routes/homeNavigation";
 
 import type { RootState } from "../../state/store";
+import Card from "./components/card";
+
+import goals from "./utils/test";
 
 type homeNavigationProp = StackNavigationProp<StackHomeNavigation>;
 
@@ -36,10 +39,11 @@ const Home: React.FC = () => {
           <Text>{t("home:activeGoals")}</Text>
           <Text>0</Text>
         </View>
-        <View style={homeStyle.goalsSectionCards}>
-          <Text>Card</Text>
-          <Text>{count}</Text>
-        </View>
+        <ScrollView style={homeStyle.goalsSectionCards} horizontal={true}>
+          <Card goal={goals[0]} />
+          <Card goal={goals[1]} />
+          <Card goal={goals[2]} />
+        </ScrollView>
       </View>
     </View>
   );
