@@ -4,11 +4,12 @@ import cardStyle from "./cardStyle";
 
 interface CardProps {
   goal: Goal;
+  pressAction: (goal: Goal) => void;
 }
 
-const Card: React.FC<CardProps> = ({ goal }) => {
+const Card: React.FC<CardProps> = ({ goal, pressAction }) => {
   return (
-    <TouchableOpacity style={cardStyle.card}>
+    <TouchableOpacity onPress={() => pressAction(goal)} style={cardStyle.card}>
       <Text>{goal.name}</Text>
     </TouchableOpacity>
   );

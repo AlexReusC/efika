@@ -34,6 +34,22 @@ const homeStyle = StyleSheet.create({
   goalsSectionCards: {
     height: "80%",
   },
+  modalSection: {
+    alignItems: "center",
+    backgroundColor: "white",
+    margin: 20,
+    borderRadius: 20,
+    padding: 35,
+  },
+  //TODO: Improve round style
+  roundButton: {
+    borderRadius: 100,
+    width: 40,
+    height: 40,
+    backgroundColor: Colors.lightBlue,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 export default homeStyle;

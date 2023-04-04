@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StatusBar, TouchableOpacity, ScrollView } from "react-native";
+import Modal from "react-native-modal";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -19,9 +20,24 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<homeNavigationProp>();
   const count = useSelector((state: RootState) => state.goals.value);
+  const [modalShown, toggleModal] = useState<boolean>(false);
+  const [currentGoal, setCurrentGoal] = useState<Goal | null>(null);
+
+  const openModal = (goal: Goal) => {
+    toggleModal(true);
+    setCurrentGoal(goal);
+  };
 
   return (
     <View style={homeStyle.screen}>
+      <Modal isVisible={modalShown} onBackdropPress={() => toggleModal(false)} animationOut={"fadeOutDownBig"}>
+        <View style={homeStyle.modalSection}>
+          <Text>{JSON.stringify(currentGoal)}</Text>
+          <TouchableOpacity style={homeStyle.roundButton} onPress={() => toggleModal(false)}>
+            <Ionicons name={"close-outline"} />
+          </TouchableOpacity>
+        </View>
+      </Modal>
       <StatusBar />
       <View style={homeStyle.titleSection}>
         <View style={homeStyle.titleSectionIcon}>
@@ -40,9 +56,9 @@ const Home: React.FC = () => {
           <Text>0</Text>
         </View>
         <ScrollView style={homeStyle.goalsSectionCards} horizontal={true}>
-          <Card goal={goals[0]} />
-          <Card goal={goals[1]} />
-          <Card goal={goals[2]} />
+          <Card goal={goals[0]} pressAction={openModal} />
+          <Card goal={goals[1]} pressAction={openModal} />
+          <Card goal={goals[2]} pressAction={openModal} />
         </ScrollView>
       </View>
     </View>
