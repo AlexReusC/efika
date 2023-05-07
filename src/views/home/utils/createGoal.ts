@@ -128,3 +128,5 @@ const createGoal = ({
 
   return { goal: goal, errors: null };
 };
+
+export default createGoal;
