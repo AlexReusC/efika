@@ -10,6 +10,8 @@ import homeStyle from "./homeStyle";
 import { StackHomeNavigation } from "../../routes/homeNavigation";
 
 import type { RootState } from "../../state/store";
+import { useDispatch } from "react-redux";
+import { create, deleteAll } from "../../state/goalsSlicer";
 import Card from "./components/card";
 
 import goals from "./utils/test";
@@ -20,6 +22,7 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<homeNavigationProp>();
   const count = useSelector((state: RootState) => state.goals.value);
+  const dispatch = useDispatch();
   const [modalShown, toggleModal] = useState<boolean>(false);
   const [currentGoal, setCurrentGoal] = useState<Goal | null>(null);
 
@@ -48,6 +51,12 @@ const Home: React.FC = () => {
         <View style={homeStyle.titleSectionText}>
           <Text>{t("home:ready")}</Text>
           <Text>{t("home:toContinue")}</Text>
+          <TouchableOpacity onPress={() => dispatch(create())}>
+            <Text>Create goal</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => dispatch(deleteAll())}>
+            <Text>Delete All</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={homeStyle.goalsSection}>

@@ -1,6 +1,11 @@
-type Category = "work" | "sports" | "health" | "culture" | "finance";
+type Category = "work" | "sports" | "health" | "culture" | "money";
 type CompletionType = "normal" | "repetition" | "time";
 type DurationType = "day" | "month" | "year";
+
+interface CategoryObject {
+  name: Category;
+  icon: any;
+}
 
 interface GoalPortion {
   initialDate: string;

@@ -1,8 +1,5 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import Colors from "../../constants/colors";
-
-const heightScreen = Dimensions.get("window").height;
-const heightCardCarousel = heightScreen * 0.4;
 
 const homeStyle = StyleSheet.create({
   screen: {
