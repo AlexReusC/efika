@@ -84,7 +84,7 @@ const createGoalStyle = StyleSheet.create({
   dayOfWeek: {},
   createGoalButtonBlock: {
     alignItems: "center",
-    marginVertical: "15%",
+    marginVertical: "10%",
     width: "100%",
   },
   createGoalButton: {

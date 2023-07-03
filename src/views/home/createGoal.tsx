@@ -49,32 +49,32 @@ const CreateGoal: React.FC = () => {
         <View style={createGoalStyle.optionsBlock}>
           <Text style={createGoalStyle.title}>Frecuencia</Text>
           <View style={createGoalStyle.measureTypeArea}>
-            <View style={createGoalStyle.icon}>
-              <MaterialCommunityIcons name={"calendar-today"} />
+            <TouchableOpacity style={createGoalStyle.icon}>
+              <MaterialCommunityIcons size={60} name={"calendar-today"} />
               <Text>{t("createGoal:daily")}</Text>
-            </View>
-            <View style={createGoalStyle.icon}>
-              <MaterialCommunityIcons name={"calendar-week"} />
+            </TouchableOpacity>
+            <TouchableOpacity style={createGoalStyle.icon}>
+              <MaterialCommunityIcons size={60} name={"calendar-week"} />
               <Text>{t("createGoal:weekly")}</Text>
-            </View>
-            <View style={createGoalStyle.icon}>
-              <MaterialCommunityIcons name={"calendar-month"} />
+            </TouchableOpacity>
+            <TouchableOpacity style={createGoalStyle.icon}>
+              <MaterialCommunityIcons size={60} name={"calendar-month"} />
               <Text>{t("createGoal:monthly")}</Text>
-            </View>
+            </TouchableOpacity>
           </View>
           <View style={createGoalStyle.dayOfWeek}></View>
         </View>
         <View style={createGoalStyle.optionsBlock}>
-          <Text style={createGoalStyle.title}>Medición - Opcional </Text>
+          <Text style={createGoalStyle.title}>Medición - Opcional</Text>
           <View style={createGoalStyle.measureTypeArea}>
-            <View style={createGoalStyle.icon}>
-              <MaterialCommunityIcons name={"clock"} />
+            <TouchableOpacity style={createGoalStyle.icon}>
+              <MaterialCommunityIcons size={60} name={"clock"} />
               <Text>Tiempo</Text>
-            </View>
-            <View style={createGoalStyle.icon}>
-              <MaterialCommunityIcons name={"repeat"} />
+            </TouchableOpacity>
+            <TouchableOpacity style={createGoalStyle.icon}>
+              <MaterialCommunityIcons size={60} name={"repeat"} />
               <Text>Repetición</Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={createGoalStyle.createGoalButtonBlock}>
