@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, ScrollView } from "react-native";
 import { Chip } from "@react-native-material/core";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useTranslation } from "react-i18next";
@@ -9,17 +9,30 @@ import { categories } from "./utils/createGoalUtils";
 
 const CreateGoal: React.FC = () => {
   const { t } = useTranslation();
+  const dayOfWeek = [
+    { name: "mon" },
+    { name: "mon" },
+    { name: "mon" },
+    { name: "mon" },
+    { name: "mon" },
+    { name: "mon" },
+    { name: "mon" },
+  ];
 
   return (
-    <View style={createGoalStyle.screen}>
+    <ScrollView style={createGoalStyle.screen}>
       <View style={createGoalStyle.header}>
-        <TextInput placeholder="Nombre de tu meta" />
-        <View>
-          <Text>Número de repeticiones:</Text>
+        <View style={createGoalStyle.nameAndReps}>
+          <TextInput style={createGoalStyle.textInput} maxLength={20} placeholder="Nombre de tu meta" />
         </View>
-        <TouchableOpacity>
-          <Text>Presiona</Text>
-        </TouchableOpacity>
+
+        <View style={createGoalStyle.numberOfRepetitions}>
+          <Text style={createGoalStyle.numberRepetitionsText}>Número de repeticiones:</Text>
+          <TouchableOpacity style={createGoalStyle.changeRepetitionsButton}>
+            <Text style={createGoalStyle.changeRepetitionsButtonText}>Escoger</Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={createGoalStyle.chipsArea}>
           {categories.map((category) => (
             <Chip
@@ -33,42 +46,44 @@ const CreateGoal: React.FC = () => {
         </View>
       </View>
       <View style={createGoalStyle.options}>
-        <View>
-          <Text>Frecuencia</Text>
-          <View style={createGoalStyle.durationTypeArea}>
-            <View>
+        <View style={createGoalStyle.optionsBlock}>
+          <Text style={createGoalStyle.title}>Frecuencia</Text>
+          <View style={createGoalStyle.measureTypeArea}>
+            <View style={createGoalStyle.icon}>
               <MaterialCommunityIcons name={"calendar-today"} />
               <Text>{t("createGoal:daily")}</Text>
             </View>
-            <View>
+            <View style={createGoalStyle.icon}>
               <MaterialCommunityIcons name={"calendar-week"} />
               <Text>{t("createGoal:weekly")}</Text>
             </View>
-            <View>
+            <View style={createGoalStyle.icon}>
               <MaterialCommunityIcons name={"calendar-month"} />
               <Text>{t("createGoal:monthly")}</Text>
             </View>
           </View>
+          <View style={createGoalStyle.dayOfWeek}></View>
         </View>
-        <View>
-          <Text> Medición - Opcional </Text>
-          <Text>¿Cómo vas a medir tu progreso?</Text>
-          <View>
-            <View>
+        <View style={createGoalStyle.optionsBlock}>
+          <Text style={createGoalStyle.title}>Medición - Opcional </Text>
+          <View style={createGoalStyle.measureTypeArea}>
+            <View style={createGoalStyle.icon}>
               <MaterialCommunityIcons name={"clock"} />
               <Text>Tiempo</Text>
             </View>
-            <View>
+            <View style={createGoalStyle.icon}>
               <MaterialCommunityIcons name={"repeat"} />
               <Text>Repetición</Text>
             </View>
           </View>
         </View>
-        <TouchableOpacity>
-          <Text>Crear meta</Text>
-        </TouchableOpacity>
+        <View style={createGoalStyle.createGoalButtonBlock}>
+          <TouchableOpacity style={createGoalStyle.createGoalButton}>
+            <Text style={createGoalStyle.createGoalButtonText}>Crear meta</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
