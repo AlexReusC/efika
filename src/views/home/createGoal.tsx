@@ -1,46 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, TextInput, ScrollView } from "react-native";
 import { Chip } from "@react-native-material/core";
+import Modal from "react-native-modal";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 
 import createGoalStyle from "./createGoalStyle";
-import { categories } from "./utils/createGoalUtils";
+import { categoriesUtil } from "./utils/createGoalUtils";
 
 const CreateGoal: React.FC = () => {
+  const [timeModalShown, toggleTimeModal] = useState(false);
+  const [setsModalShown, toggleSetsModal] = useState(false);
+  const [name, setName] = useState("");
+  const [repetitions, setRepetitions] = useState<number | null>(null);
+  const [categories, setCategories] = useState(categoriesUtil);
   const { t } = useTranslation();
-  const dayOfWeek = [
-    { name: "mon" },
-    { name: "mon" },
-    { name: "mon" },
-    { name: "mon" },
-    { name: "mon" },
-    { name: "mon" },
-    { name: "mon" },
-  ];
+
+  const toggleCategories = (id: Category) => {
+    const newCategories = categories.map((category) => {
+      if (category.name === id) {
+        if (!category.active) {
+          return { ...category, active: true };
+        }
+        return { ...category, active: false };
+      }
+      return { ...category, active: false };
+    });
+
+    setCategories(newCategories);
+  };
 
   return (
     <ScrollView style={createGoalStyle.screen}>
       <View style={createGoalStyle.header}>
         <View style={createGoalStyle.nameAndReps}>
-          <TextInput style={createGoalStyle.textInput} maxLength={20} placeholder="Nombre de tu meta" />
+          <TextInput
+            value={name}
+            onChange={(event) => setName(event.nativeEvent.text)}
+            style={createGoalStyle.textInput}
+            maxLength={20}
+            placeholder="Nombre de tu meta"
+          />
         </View>
 
         <View style={createGoalStyle.numberOfRepetitions}>
           <Text style={createGoalStyle.numberRepetitionsText}>Número de repeticiones:</Text>
-          <TouchableOpacity style={createGoalStyle.changeRepetitionsButton}>
-            <Text style={createGoalStyle.changeRepetitionsButtonText}>Escoger</Text>
-          </TouchableOpacity>
+          <TextInput
+            keyboardType="decimal-pad"
+            placeholder="0"
+            value={repetitions?.toString()}
+            onChange={(e) => {
+              if (e.nativeEvent.text && !isNaN(parseInt(e.nativeEvent.text)) && parseInt(e.nativeEvent.text) > 0) {
+                setRepetitions(parseInt(e.nativeEvent.text));
+              } else {
+                setRepetitions(null);
+              }
+            }}
+            style={createGoalStyle.numberInput}
+            maxLength={3}
+          />
         </View>
 
         <View style={createGoalStyle.chipsArea}>
           {categories.map((category) => (
             <Chip
               key={category.name}
+              onPress={() => toggleCategories(category.name)}
               label={t(`createGoal:${category.name}`)}
-              style={createGoalStyle.chip}
-              labelStyle={createGoalStyle.chipText}
-              trailing={(props) => <MaterialCommunityIcons name={category.icon} {...props} />}
+              style={category.active ? createGoalStyle.activeChip : createGoalStyle.inactiveChip}
+              labelStyle={category.active ? createGoalStyle.activeChipText : createGoalStyle.inactiveChipText}
+              trailing={(props) => (
+                <MaterialCommunityIcons
+                  name={category.icon}
+                  style={category.active ? createGoalStyle.activeChipText : createGoalStyle.inactiveChipText}
+                  {...props}
+                />
+              )}
             />
           ))}
         </View>
@@ -73,7 +109,7 @@ const CreateGoal: React.FC = () => {
             </TouchableOpacity>
             <TouchableOpacity style={createGoalStyle.icon}>
               <MaterialCommunityIcons size={60} name={"repeat"} />
-              <Text>Repetición</Text>
+              <Text>Series</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -8,6 +8,21 @@ const createGoalStyle = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
+  modalSection: {
+    alignItems: "center",
+    backgroundColor: "white",
+    margin: 20,
+    borderRadius: 20,
+    padding: 35,
+  },
+  roundButton: {
+    borderRadius: 100,
+    width: 40,
+    height: 40,
+    backgroundColor: colors.lightBlue,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   header: {
     alignItems: "center",
     justifyContent: "space-between",
@@ -26,10 +41,18 @@ const createGoalStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     height: "35%",
+    width: "80%",
   },
   textInput: {
     borderColor: colors.black,
     width: "100%",
+    borderBottomWidth: 2,
+    textAlign: "center",
+    fontSize: 27,
+  },
+  numberInput: {
+    borderColor: colors.black,
+    width: "30%",
     borderBottomWidth: 2,
     textAlign: "center",
     fontSize: 27,
@@ -65,10 +88,18 @@ const createGoalStyle = StyleSheet.create({
   optionsBlock: {
     width: "100%",
   },
-  chip: {
+  inactiveChip: {
     backgroundColor: colors.white,
   },
-  chipText: {
+  activeChip: {
+    backgroundColor: colors.mainBlue,
+  },
+  activeChipText: {
+    color: colors.white,
+    fontSize: 18,
+  },
+  inactiveChipText: {
+    color: colors.black,
     fontSize: 18,
   },
   measureTypeArea: {

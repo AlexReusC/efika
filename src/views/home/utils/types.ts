@@ -5,6 +5,7 @@ type DurationType = "day" | "month" | "year";
 interface CategoryObject {
   name: Category;
   icon: any;
+  active: boolean;
 }
 
 interface GoalPortion {
