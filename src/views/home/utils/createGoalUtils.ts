@@ -6,12 +6,23 @@ export const categoriesUtil: CategoryObject[] = [
   { name: "work", icon: "briefcase-variant", active: false },
 ];
 
-export const dayOfWeek = [
+export const frequenciesUtil: FrequencyObject[] = [
+  { name: "daily", icon: "calendar-today", active: false },
+  { name: "weekly", icon: "calendar-week", active: false },
+  { name: "monthly", icon: "calendar-month", active: false },
+];
+
+export const measuresUtil: MeasureObject[] = [
+  { name: "time", icon: "clock", active: false },
+  { name: "sets", icon: "repeat", active: false },
+];
+
+export const daysOfWeekUtil = [
+  { name: "sun" },
   { name: "mon" },
-  { name: "mon" },
-  { name: "mon" },
-  { name: "mon" },
-  { name: "mon" },
-  { name: "mon" },
-  { name: "mon" },
+  { name: "tue" },
+  { name: "wed" },
+  { name: "thu" },
+  { name: "fri" },
+  { name: "sat" },
 ];

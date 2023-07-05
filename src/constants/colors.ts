@@ -5,4 +5,5 @@ export default {
   mainPurple: "#2E47EC",
   white: "white",
   black: "black",
+  gray: "#DADADA",
 };

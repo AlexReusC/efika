@@ -7,15 +7,30 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 
 import createGoalStyle from "./createGoalStyle";
-import { categoriesUtil } from "./utils/createGoalUtils";
+import { categoriesUtil, frequenciesUtil, measuresUtil, daysOfWeekUtil } from "./utils/createGoalUtils";
 
 const CreateGoal: React.FC = () => {
   const [timeModalShown, toggleTimeModal] = useState(false);
   const [setsModalShown, toggleSetsModal] = useState(false);
+  const [daysShown, toggleDaysShown] = useState(false);
   const [name, setName] = useState("");
-  const [repetitions, setRepetitions] = useState<number | null>(null);
+  const [repetitions, setRepetitions] = useState<string | null>(null);
   const [categories, setCategories] = useState(categoriesUtil);
+  const [frequencies, setFrequencies] = useState(frequenciesUtil);
+  const [daysOfWeek, setDaysOfWeek] = useState(daysOfWeekUtil);
+  const [measures, setMeasures] = useState(measuresUtil);
   const { t } = useTranslation();
+
+  const changeRepetitionsText = (text: string) => {
+    if (text.length == 0) {
+      setRepetitions(null);
+    } else {
+      const regexRule = /^[1-9][0-9]{0,2}$/;
+      if (regexRule.test(text)) {
+        setRepetitions(text);
+      }
+    }
+  };
 
   const toggleCategories = (id: Category) => {
     const newCategories = categories.map((category) => {
@@ -29,6 +44,43 @@ const CreateGoal: React.FC = () => {
     });
 
     setCategories(newCategories);
+  };
+
+  const toggleFrequencies = (id: Frequency) => {
+    if (id !== "daily") {
+      toggleDaysShown(false);
+    }
+    const newFrequencies = frequencies.map((frequency) => {
+      if (frequency.name === id) {
+        if (!frequency.active) {
+          if (frequency.name === "daily") {
+            toggleDaysShown(true);
+          }
+          return { ...frequency, active: true };
+        }
+        if (frequency.name === "daily") {
+          toggleDaysShown(false);
+        }
+        return { ...frequency, active: false };
+      }
+      return { ...frequency, active: false };
+    });
+
+    setFrequencies(newFrequencies);
+  };
+
+  const toggleMeasures = (id: Measure) => {
+    const newMeasures = measures.map((measure) => {
+      if (measure.name === id) {
+        if (!measure.active) {
+          return { ...measure, active: true };
+        }
+        return { ...measure, active: false };
+      }
+      return { ...measure, active: false };
+    });
+
+    setMeasures(newMeasures);
   };
 
   return (
@@ -49,14 +101,8 @@ const CreateGoal: React.FC = () => {
           <TextInput
             keyboardType="decimal-pad"
             placeholder="0"
-            value={repetitions?.toString()}
-            onChange={(e) => {
-              if (e.nativeEvent.text && !isNaN(parseInt(e.nativeEvent.text)) && parseInt(e.nativeEvent.text) > 0) {
-                setRepetitions(parseInt(e.nativeEvent.text));
-              } else {
-                setRepetitions(null);
-              }
-            }}
+            value={repetitions !== null ? repetitions.toString() : ""}
+            onChangeText={(text) => changeRepetitionsText(text)}
             style={createGoalStyle.numberInput}
             maxLength={3}
           />
@@ -85,32 +131,48 @@ const CreateGoal: React.FC = () => {
         <View style={createGoalStyle.optionsBlock}>
           <Text style={createGoalStyle.title}>Frecuencia</Text>
           <View style={createGoalStyle.measureTypeArea}>
-            <TouchableOpacity style={createGoalStyle.icon}>
-              <MaterialCommunityIcons size={60} name={"calendar-today"} />
-              <Text>{t("createGoal:daily")}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={createGoalStyle.icon}>
-              <MaterialCommunityIcons size={60} name={"calendar-week"} />
-              <Text>{t("createGoal:weekly")}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={createGoalStyle.icon}>
-              <MaterialCommunityIcons size={60} name={"calendar-month"} />
-              <Text>{t("createGoal:monthly")}</Text>
-            </TouchableOpacity>
+            {frequencies.map((frequency) => (
+              <TouchableOpacity
+                key={frequency.name}
+                onPress={() => toggleFrequencies(frequency.name)}
+                style={createGoalStyle.icon}
+              >
+                <MaterialCommunityIcons
+                  style={frequency.active ? createGoalStyle.activeIcon : null}
+                  size={60}
+                  name={frequency.icon}
+                />
+                <Text>{t(`createGoal:${frequency.name}`)}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
-          <View style={createGoalStyle.dayOfWeek}></View>
+          {daysShown ? (
+            <View style={createGoalStyle.dayOfWeekArea}>
+              {daysOfWeek.map((day) => (
+                <TouchableOpacity style={[createGoalStyle.dayOfWeekIcon]}>
+                  <Text>{day.name}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          ) : null}
         </View>
         <View style={createGoalStyle.optionsBlock}>
           <Text style={createGoalStyle.title}>Medición - Opcional</Text>
           <View style={createGoalStyle.measureTypeArea}>
-            <TouchableOpacity style={createGoalStyle.icon}>
-              <MaterialCommunityIcons size={60} name={"clock"} />
-              <Text>Tiempo</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={createGoalStyle.icon}>
-              <MaterialCommunityIcons size={60} name={"repeat"} />
-              <Text>Series</Text>
-            </TouchableOpacity>
+            {measures.map((measure) => (
+              <TouchableOpacity
+                key={measure.name}
+                onPress={() => toggleMeasures(measure.name)}
+                style={createGoalStyle.icon}
+              >
+                <MaterialCommunityIcons
+                  style={measure.active ? createGoalStyle.activeIcon : null}
+                  size={60}
+                  name={measure.icon}
+                />
+                <Text>{t(`createGoal:${measure.name}`)}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </View>
         <View style={createGoalStyle.createGoalButtonBlock}>

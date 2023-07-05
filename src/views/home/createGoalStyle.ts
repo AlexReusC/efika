@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions } from "react-native";
 import colors from "../../constants/colors";
 
 const heightScreen = Dimensions.get("window").height;
+const widthScreen = Dimensions.get("window").width;
 
 const createGoalStyle = StyleSheet.create({
   screen: {
@@ -109,10 +110,28 @@ const createGoalStyle = StyleSheet.create({
   icon: {
     alignItems: "center",
   },
+  activeIcon: {
+    color: colors.mainBlue,
+  },
   title: {
     fontSize: 27,
   },
-  dayOfWeek: {},
+  dayOfWeekArea: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingHorizontal: "5%",
+    width: "100%",
+  },
+  dayOfWeekIcon: {
+    width: widthScreen * 0.1,
+    height: widthScreen * 0.1,
+    backgroundColor: colors.mainPurple,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 8,
+  },
+  dayOfWeekIconActive: {},
+  dayOfWeekIconInactive: {},
   createGoalButtonBlock: {
     alignItems: "center",
     marginVertical: "10%",
