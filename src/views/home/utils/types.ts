@@ -1,4 +1,5 @@
 type Category = "work" | "sports" | "health" | "culture" | "money";
+type DayOfWeek = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
 type Frequency = "daily" | "weekly" | "monthly";
 type Measure = "time" | "sets";
 type CompletionType = "normal" | "repetition" | "time";
@@ -19,6 +20,11 @@ interface FrequencyObject {
 interface MeasureObject {
   name: Measure;
   icon: any;
+  active: boolean;
+}
+
+interface DayOfWeekObject {
+  name: DayOfWeek;
   active: boolean;
 }
 

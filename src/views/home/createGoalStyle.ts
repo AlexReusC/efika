@@ -125,13 +125,22 @@ const createGoalStyle = StyleSheet.create({
   dayOfWeekIcon: {
     width: widthScreen * 0.1,
     height: widthScreen * 0.1,
-    backgroundColor: colors.mainPurple,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
   },
-  dayOfWeekIconActive: {},
-  dayOfWeekIconInactive: {},
+  dayOfWeekIconActive: {
+    backgroundColor: colors.mainBlue,
+  },
+  dayOfWeekIconInactive: {
+    backgroundColor: colors.gray,
+  },
+  activeDayText: {
+    color: colors.white,
+  },
+  inactiveDayText: {
+    color: colors.black,
+  },
   createGoalButtonBlock: {
     alignItems: "center",
     marginVertical: "10%",

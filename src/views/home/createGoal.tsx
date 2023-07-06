@@ -83,6 +83,23 @@ const CreateGoal: React.FC = () => {
     setMeasures(newMeasures);
   };
 
+  const toggleDaysOfWeek = (id: DayOfWeek) => {
+    const lenActiveDays = daysOfWeek.filter((day) => day.active === true).length;
+    const newDaysOfWeek = daysOfWeek.map((dayOfWeek) => {
+      if (dayOfWeek.name === id) {
+        if (!dayOfWeek.active) {
+          return { ...dayOfWeek, active: true };
+        }
+        if (lenActiveDays > 1) {
+          return { ...dayOfWeek, active: false };
+        }
+      }
+      return { ...dayOfWeek };
+    });
+
+    setDaysOfWeek(newDaysOfWeek);
+  };
+
   return (
     <ScrollView style={createGoalStyle.screen}>
       <View style={createGoalStyle.header}>
@@ -149,8 +166,17 @@ const CreateGoal: React.FC = () => {
           {daysShown ? (
             <View style={createGoalStyle.dayOfWeekArea}>
               {daysOfWeek.map((day) => (
-                <TouchableOpacity style={[createGoalStyle.dayOfWeekIcon]}>
-                  <Text>{day.name}</Text>
+                <TouchableOpacity
+                  key={day.name}
+                  style={[
+                    createGoalStyle.dayOfWeekIcon,
+                    day.active ? createGoalStyle.dayOfWeekIconActive : createGoalStyle.dayOfWeekIconInactive,
+                  ]}
+                  onPress={() => toggleDaysOfWeek(day.name)}
+                >
+                  <Text style={day.active ? createGoalStyle.activeDayText : createGoalStyle.inactiveDayText}>
+                    {day.name}
+                  </Text>
                 </TouchableOpacity>
               ))}
             </View>
