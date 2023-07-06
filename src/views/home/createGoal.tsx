@@ -109,12 +109,12 @@ const CreateGoal: React.FC = () => {
             onChange={(event) => setName(event.nativeEvent.text)}
             style={createGoalStyle.textInput}
             maxLength={20}
-            placeholder="Nombre de tu meta"
+            placeholder={t("createGoal:nameOfYourGoal")}
           />
         </View>
 
         <View style={createGoalStyle.numberOfRepetitions}>
-          <Text style={createGoalStyle.numberRepetitionsText}>Número de repeticiones:</Text>
+          <Text style={createGoalStyle.numberRepetitionsText}>{t("createGoal:numberRepetitions")}</Text>
           <TextInput
             keyboardType="decimal-pad"
             placeholder="0"
@@ -146,7 +146,7 @@ const CreateGoal: React.FC = () => {
       </View>
       <View style={createGoalStyle.options}>
         <View style={createGoalStyle.optionsBlock}>
-          <Text style={createGoalStyle.title}>Frecuencia</Text>
+          <Text style={createGoalStyle.title}>{t("createGoal:frequency")}</Text>
           <View style={createGoalStyle.measureTypeArea}>
             {frequencies.map((frequency) => (
               <TouchableOpacity
@@ -175,7 +175,7 @@ const CreateGoal: React.FC = () => {
                   onPress={() => toggleDaysOfWeek(day.name)}
                 >
                   <Text style={day.active ? createGoalStyle.activeDayText : createGoalStyle.inactiveDayText}>
-                    {day.name}
+                    {t(`createGoal:${day.name}`)}
                   </Text>
                 </TouchableOpacity>
               ))}
@@ -183,7 +183,7 @@ const CreateGoal: React.FC = () => {
           ) : null}
         </View>
         <View style={createGoalStyle.optionsBlock}>
-          <Text style={createGoalStyle.title}>Medición - Opcional</Text>
+          <Text style={createGoalStyle.title}>{t("createGoal:measure")}</Text>
           <View style={createGoalStyle.measureTypeArea}>
             {measures.map((measure) => (
               <TouchableOpacity
@@ -203,7 +203,7 @@ const CreateGoal: React.FC = () => {
         </View>
         <View style={createGoalStyle.createGoalButtonBlock}>
           <TouchableOpacity style={createGoalStyle.createGoalButton}>
-            <Text style={createGoalStyle.createGoalButtonText}>Crear meta</Text>
+            <Text style={createGoalStyle.createGoalButtonText}>{t("createGoal:createGoal")}</Text>
           </TouchableOpacity>
         </View>
       </View>
