@@ -16,6 +16,14 @@ const createGoalStyle = StyleSheet.create({
     borderRadius: 20,
     padding: 35,
   },
+  timeInputSection: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+  },
+  textInputModal: {
+    fontSize: 58,
+    alignSelf: "flex-end",
+  },
   roundButton: {
     borderRadius: 100,
     width: 40,
@@ -109,9 +117,15 @@ const createGoalStyle = StyleSheet.create({
   },
   icon: {
     alignItems: "center",
+    paddingHorizontal: "5%",
   },
   activeIcon: {
     color: colors.mainBlue,
+  },
+  badgeStyle: {
+    backgroundColor: colors.softBlue,
+    position: "absolute",
+    alignSelf: "flex-end",
   },
   title: {
     fontSize: 27,
