@@ -23,7 +23,8 @@ const CreateGoal: React.FC = () => {
   const [tmpSeconds, setTmpSeconds] = useState<string | null>(null);
   const [minutes, setMinutes] = useState<string | null>(null);
   const [seconds, setSeconds] = useState<string | null>(null);
-  const [sets, setSets] = useState<number | null>(null);
+  const [tmpSets, setTmpSets] = useState<string | null>(null);
+  const [sets, setSets] = useState<string | null>(null);
   const ref_input2 = useRef<TextInput | null>(null);
   const { t } = useTranslation();
 
@@ -82,29 +83,52 @@ const CreateGoal: React.FC = () => {
         setMinutes(null);
         setSeconds(null);
       } else {
+        toggleMeasures("sets", false);
         toggleTimeModal(true);
+        setSets(null);
       }
     } else if (id === "sets") {
-      toggleSetsModal(true);
+      if (measures[1].active) {
+        toggleMeasures("sets", false);
+        setSets(null);
+      } else {
+        toggleMeasures("time", false);
+        toggleSetsModal(true);
+        setMinutes(null);
+        setSeconds(null);
+      }
     }
   };
 
   const closeTimeModal = () => {
     if (tmpMinutes || tmpSeconds) {
       let secondsVar = tmpSeconds;
+      let minutesVar = tmpMinutes;
       if (!secondsVar) {
         secondsVar = "00";
+      }
+      if (!minutesVar) {
+        minutesVar = "0";
       }
       if (secondsVar.length == 1) {
         secondsVar = "0" + secondsVar;
       }
-      setMinutes(tmpMinutes);
+      setMinutes(minutesVar);
       setSeconds(secondsVar);
       toggleMeasures("time", true);
     }
     toggleTimeModal(false);
     setTmpMinutes(null);
     setTmpSeconds(null);
+  };
+
+  const closeSetsModal = () => {
+    if (tmpSets) {
+      setSets(tmpSets);
+      toggleMeasures("sets", true);
+    }
+    toggleSetsModal(false);
+    setTmpSets(null);
   };
 
   const toggleMeasures = (id: Measure, newActive: boolean) => {
@@ -191,10 +215,28 @@ const CreateGoal: React.FC = () => {
 
       <Modal isVisible={setsModalShown} onBackdropPress={() => toggleSetsModal(false)} animationOut={"fadeOutDownBig"}>
         <View style={createGoalStyle.modalSection}>
-          <Text>Escoge series:</Text>
-          <TextInput placeholder="00" />
-          <TouchableOpacity style={createGoalStyle.roundButton} onPress={() => toggleSetsModal(false)}>
-            <Ionicons name={"close-outline"} />
+          <Text>Escoge el número de series:</Text>
+          <View>
+            <TextInput
+              placeholder="00"
+              value={tmpSets !== null ? tmpSets : ""}
+              onChangeText={(text) => {
+                if (text.length === 0) {
+                  setTmpSets(null);
+                } else {
+                  const regexRule = /^[1-9]+[0-9]*$/;
+                  if (regexRule.test(text)) {
+                    setTmpSets(text);
+                  }
+                }
+              }}
+              maxLength={3}
+              keyboardType="numeric"
+              style={createGoalStyle.textInputModal}
+            />
+          </View>
+          <TouchableOpacity style={createGoalStyle.roundButton} onPress={() => closeSetsModal()}>
+            {tmpSets ? <Ionicons name={"checkmark"} /> : <Ionicons name={"close-outline"} />}
           </TouchableOpacity>
         </View>
       </Modal>
@@ -293,7 +335,12 @@ const CreateGoal: React.FC = () => {
                   size={60}
                   name={measure.icon}
                 />
-                {measure.active ? <Badge style={createGoalStyle.badgeStyle} label={`${minutes}:${seconds}`} /> : null}
+                {measure.active ? (
+                  <Badge
+                    style={createGoalStyle.badgeStyle}
+                    label={measures[0].active ? `${minutes}:${seconds}` : `${sets}`}
+                  />
+                ) : null}
                 <Text>{t(`createGoal:${measure.name}`)}</Text>
               </TouchableOpacity>
             ))}
