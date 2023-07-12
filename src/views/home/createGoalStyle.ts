@@ -35,7 +35,7 @@ const createGoalStyle = StyleSheet.create({
   header: {
     alignItems: "center",
     justifyContent: "space-between",
-    height: heightScreen * 0.35,
+    height: heightScreen * 0.32,
     paddingBottom: "8%",
     paddingTop: "4%",
     backgroundColor: colors.softBlue,
@@ -49,6 +49,7 @@ const createGoalStyle = StyleSheet.create({
   numberOfRepetitions: {
     alignItems: "center",
     justifyContent: "space-around",
+    flexDirection: "row",
     height: "35%",
     width: "80%",
   },
@@ -90,7 +91,7 @@ const createGoalStyle = StyleSheet.create({
   },
   options: {
     alignItems: "flex-start",
-    paddingTop: "8%",
+    paddingTop: "6%",
     paddingHorizontal: "5%",
     width: "100%",
   },
@@ -114,6 +115,7 @@ const createGoalStyle = StyleSheet.create({
   measureTypeArea: {
     flexDirection: "row",
     justifyContent: "space-around",
+    paddingVertical: "2%",
   },
   icon: {
     alignItems: "center",
@@ -135,6 +137,7 @@ const createGoalStyle = StyleSheet.create({
     justifyContent: "space-around",
     paddingHorizontal: "5%",
     width: "100%",
+    paddingBottom: "2%",
   },
   dayOfWeekIcon: {
     width: widthScreen * 0.1,

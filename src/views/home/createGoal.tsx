@@ -253,7 +253,10 @@ const CreateGoal: React.FC = () => {
         </View>
 
         <View style={createGoalStyle.numberOfRepetitions}>
-          <Text style={createGoalStyle.numberRepetitionsText}>{t("createGoal:numberRepetitions")}</Text>
+          <View>
+            <Text style={createGoalStyle.numberRepetitionsText}>{t("createGoal:numberOf")}</Text>
+            <Text style={createGoalStyle.numberRepetitionsText}>{t("createGoal:repetitions")}</Text>
+          </View>
           <TextInput
             keyboardType="decimal-pad"
             placeholder="0"
