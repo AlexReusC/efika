@@ -5,6 +5,8 @@ import Modal from "react-native-modal";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { create } from "../../state/goalsSlicer";
 
 import createGoalStyle from "./createGoalStyle";
 import createGoal from "./utils/createGoal";
@@ -29,6 +31,7 @@ const CreateGoal: React.FC = () => {
   const [sets, setSets] = useState<string | null>(null);
   const [active, setActive] = useState(false);
   const ref_input2 = useRef<TextInput | null>(null);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const changeRepetitionsText = (text: string) => {
@@ -180,7 +183,11 @@ const CreateGoal: React.FC = () => {
       minutesProp: minutes,
       secondsProp: seconds,
     });
-    console.log(newGoal.goal?.goalPortions);
+    console.log(newGoal);
+    if (newGoal.goal) {
+      console.log(newGoal.goal);
+      dispatch(create(newGoal.goal));
+    }
   };
 
   return (

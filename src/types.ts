@@ -48,7 +48,7 @@ interface Goal {
   repetitions: number;
   completed: boolean;
   category: Category;
-  measure: Measure;
+  measure: Measure | null;
   frequency: Frequency;
   daysOfWeek: DayOfWeek[] | null;
   sets: number | null;

@@ -62,7 +62,7 @@ const createGoal = ({
     }
   }
 
-  if (errors.length > 0 || !repetitions || !measure || !daysOfWeek) {
+  if (errors.length > 0 || !repetitions ) {
     return { goal: null, errors: errors };
   }
   //basic attrs

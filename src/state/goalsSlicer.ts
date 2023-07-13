@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface GoalsState {
-  value: number[];
+  value: Goal[];
 }
 
 const initialState: GoalsState = {
@@ -12,8 +13,8 @@ export const goalsSlice = createSlice({
   name: "goals",
   initialState,
   reducers: {
-    create: (state) => {
-      state.value.push(1);
+    create: (state, action: PayloadAction<Goal>) => {
+      state.value.push(action.payload);
     },
     deleteAll: (state) => {
       state.value = [];

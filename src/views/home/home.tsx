@@ -21,7 +21,8 @@ type homeNavigationProp = StackNavigationProp<StackHomeNavigation>;
 const Home: React.FC = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<homeNavigationProp>();
-  const count = useSelector((state: RootState) => state.goals.value);
+  const myGoals = useSelector((state: RootState) => state.goals.value);
+  console.log(myGoals);
   const dispatch = useDispatch();
   const [modalShown, toggleModal] = useState<boolean>(false);
   const [currentGoal, setCurrentGoal] = useState<Goal | null>(null);
@@ -51,11 +52,8 @@ const Home: React.FC = () => {
         <View style={homeStyle.titleSectionText}>
           <Text>{t("home:ready")}</Text>
           <Text>{t("home:toContinue")}</Text>
-          <TouchableOpacity onPress={() => dispatch(create())}>
-            <Text>Create goal</Text>
-          </TouchableOpacity>
           <TouchableOpacity onPress={() => dispatch(deleteAll())}>
-            <Text>Delete All</Text>
+            <Text>Delete All (Debug)</Text>
           </TouchableOpacity>
         </View>
       </View>
