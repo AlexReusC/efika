@@ -3,7 +3,16 @@ type DayOfWeek = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
 type Frequency = "daily" | "weekly" | "monthly";
 type Measure = "time" | "sets";
 type CompletionType = "normal" | "repetition" | "time";
-type DurationType = "day" | "month" | "year";
+type DurationType = "day" | "week" | "month";
+type GoalFields =
+  | "name"
+  | "portions"
+  | "category"
+  | "durationType"
+  | "daysOfWeek"
+  | "completionType"
+  | "repetitionsToComplete"
+  | "timeToComplete";
 
 interface CategoryObject {
   name: Category;
@@ -31,7 +40,7 @@ interface DayOfWeekObject {
 interface GoalPortion {
   initialDate: string;
   finalDate: string;
-  completionState: number;
+  completionState: number | boolean; //keeps time, repetitons or boolean value
 }
 
 interface Goal {
@@ -42,17 +51,17 @@ interface Goal {
   category: Category;
   completionType: CompletionType;
   durationType: DurationType;
-  repetionsCompleted: number | null;
-  timeCompleted: number | null;
+  daysOfWeek: number[];
+  repetitionsToComplete: number | null;
+  timeToComplete: number | null;
   initialDate: string; //change to some type of date
   finalDate: string;
-  timesToDo: number;
   itGoalPortion: number;
   goalPortions: GoalPortion[];
 }
 
 interface FieldError {
-  field: string;
+  field: GoalFields;
   message: string;
 }
 
