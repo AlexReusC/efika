@@ -7,6 +7,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 
 import createGoalStyle from "./createGoalStyle";
+import createGoal from "./utils/createGoal";
+import filterGoalAttrs from "./utils/filterGoalAttrs";
 import { categoriesUtil, frequenciesUtil, measuresUtil, daysOfWeekUtil } from "./utils/createGoalUtils";
 
 const CreateGoal: React.FC = () => {
@@ -17,7 +19,7 @@ const CreateGoal: React.FC = () => {
   const [repetitions, setRepetitions] = useState<string | null>(null);
   const [categories, setCategories] = useState(categoriesUtil);
   const [frequencies, setFrequencies] = useState(frequenciesUtil);
-  const [daysOfWeek, setDaysOfWeek] = useState(daysOfWeekUtil);
+  const [daysOfWeekArr, setDaysOfWeekArr] = useState(daysOfWeekUtil);
   const [measures, setMeasures] = useState(measuresUtil);
   const [tmpMinutes, setTmpMinutes] = useState<string | null>(null);
   const [tmpSeconds, setTmpSeconds] = useState<string | null>(null);
@@ -144,8 +146,8 @@ const CreateGoal: React.FC = () => {
   };
 
   const toggleDaysOfWeek = (id: DayOfWeek) => {
-    const lenActiveDays = daysOfWeek.filter((day) => day.active === true).length;
-    const newDaysOfWeek = daysOfWeek.map((dayOfWeek) => {
+    const lenActiveDays = daysOfWeekArr.filter((day) => day.active === true).length;
+    const newDaysOfWeek = daysOfWeekArr.map((dayOfWeek) => {
       if (dayOfWeek.name === id) {
         if (!dayOfWeek.active) {
           return { ...dayOfWeek, active: true };
@@ -157,7 +159,28 @@ const CreateGoal: React.FC = () => {
       return { ...dayOfWeek };
     });
 
-    setDaysOfWeek(newDaysOfWeek);
+    setDaysOfWeekArr(newDaysOfWeek);
+  };
+
+  const addNewGoal = () => {
+    const { category, daysOfWeek, frequency, measure } = filterGoalAttrs({
+      categories,
+      daysOfWeekArr,
+      frequencies,
+      measures,
+    });
+    const newGoal = createGoal({
+      name,
+      repetitionsProp: repetitions,
+      category,
+      frequency,
+      daysOfWeek,
+      measure,
+      setsProp: sets,
+      minutesProp: minutes,
+      secondsProp: seconds,
+    });
+    console.log(newGoal.goal?.goalPortions);
   };
 
   return (
@@ -309,7 +332,7 @@ const CreateGoal: React.FC = () => {
           </View>
           {daysShown ? (
             <View style={createGoalStyle.dayOfWeekArea}>
-              {daysOfWeek.map((day) => (
+              {daysOfWeekArr.map((day) => (
                 <TouchableOpacity
                   key={day.name}
                   style={[
@@ -354,6 +377,7 @@ const CreateGoal: React.FC = () => {
         <View style={createGoalStyle.createGoalButtonBlock}>
           <TouchableOpacity
             style={active ? createGoalStyle.createGoalButtonActive : createGoalStyle.createGoalButtonInactive}
+            onPress={() => addNewGoal()}
           >
             <Text
               style={active ? createGoalStyle.createGoalButtonTextActive : createGoalStyle.createGoalButtonTextInactive}

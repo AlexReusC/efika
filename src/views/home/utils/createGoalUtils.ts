@@ -18,11 +18,11 @@ export const measuresUtil: MeasureObject[] = [
 ];
 
 export const daysOfWeekUtil: DayOfWeekObject[] = [
-  { name: "sun", active: false },
-  { name: "mon", active: true },
-  { name: "tue", active: true },
-  { name: "wed", active: true },
-  { name: "thu", active: true },
-  { name: "fri", active: true },
-  { name: "sat", active: false },
+  { id: 0, name: "sun", active: false },
+  { id: 1, name: "mon", active: true },
+  { id: 2, name: "tue", active: true },
+  { id: 3, name: "wed", active: true },
+  { id: 4, name: "thu", active: true },
+  { id: 5, name: "fri", active: true },
+  { id: 6, name: "sat", active: false },
 ];

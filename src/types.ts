@@ -2,15 +2,13 @@ type Category = "work" | "sports" | "health" | "culture" | "money";
 type DayOfWeek = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
 type Frequency = "daily" | "weekly" | "monthly";
 type Measure = "time" | "sets";
-type CompletionType = "normal" | "repetition" | "time";
-type DurationType = "day" | "week" | "month";
 type GoalFields =
   | "name"
   | "portions"
   | "category"
-  | "durationType"
+  | "frequency"
   | "daysOfWeek"
-  | "completionType"
+  | "completion"
   | "repetitionsToComplete"
   | "timeToComplete";
 
@@ -33,6 +31,7 @@ interface MeasureObject {
 }
 
 interface DayOfWeekObject {
+  id: number;
   name: DayOfWeek;
   active: boolean;
 }
@@ -46,14 +45,14 @@ interface GoalPortion {
 interface Goal {
   id: string;
   name: string;
-  portions: number;
+  repetitions: number;
   completed: boolean;
   category: Category;
-  completionType: CompletionType;
-  durationType: DurationType;
-  daysOfWeek: number[];
-  repetitionsToComplete: number | null;
-  timeToComplete: number | null;
+  measure: Measure;
+  frequency: Frequency;
+  daysOfWeek: DayOfWeek[] | null;
+  sets: number | null;
+  time: number | null;
   initialDate: string; //change to some type of date
   finalDate: string;
   itGoalPortion: number;

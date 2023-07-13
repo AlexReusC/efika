@@ -4,78 +4,84 @@ import errorGoalMessages from "../../../constants/errorGoalMessages";
 
 interface CreateGoalProps {
   name: string;
-  portions: number | null;
+  repetitionsProp: string | null;
   category: Category | null;
-  durationType: DurationType | null;
-  daysOfWeek: number[];
-  completionType: CompletionType;
-  repetitionsToComplete: number | null;
-  timeToComplete: number | null; //change to date
+  frequency: Frequency | null;
+  daysOfWeek: DayOfWeek[] | null;
+  measure: Measure | null;
+  setsProp: string | null;
+  minutesProp: string | null;
+  secondsProp: string | null;
 }
 
 const createGoal = ({
   name,
   category,
-  completionType,
+  measure,
   daysOfWeek,
-  durationType,
-  portions,
-  repetitionsToComplete,
-  timeToComplete,
+  frequency,
+  repetitionsProp,
+  setsProp,
+  minutesProp,
+  secondsProp,
 }: CreateGoalProps): GoalCreated => {
   const errors: FieldError[] = [];
   //input checks
-  if (!name || name.length < 3) {
+  let repetitions = Number(repetitionsProp);
+  const sets = Number(setsProp);
+  const minutes = Number(minutesProp);
+  const seconds = Number(secondsProp);
+  if (name.length < 1) {
     errors.push({ field: "name", message: errorGoalMessages.NameLonger });
   }
-  if (!portions) {
+  if (!repetitions) {
     errors.push({ field: "portions", message: errorGoalMessages.PortionsIsNull });
-  } else if (portions < 1) {
+  } else if (repetitions < 1) {
     errors.push({ field: "portions", message: errorGoalMessages.PortionsIsZero });
   }
   if (!category) {
     errors.push({ field: "category", message: errorGoalMessages.NoCategory });
   }
-  if (!durationType) {
-    errors.push({ field: "durationType", message: errorGoalMessages.NoDuration });
-  } else if (durationType === "day" && daysOfWeek.length === 0) {
-    errors.push({ field: "durationType", message: errorGoalMessages.NoDayOfWeek });
+  if (!frequency) {
+    errors.push({ field: "frequency", message: errorGoalMessages.NoDuration });
+  } else if (frequency === "daily" && daysOfWeek && daysOfWeek.length === 0) {
+    errors.push({ field: "daysOfWeek", message: errorGoalMessages.NoDayOfWeek });
   }
-  if (completionType === "repetition") {
-    if (!repetitionsToComplete) {
+  if (measure === "sets") {
+    if (!sets) {
       errors.push({ field: "repetitionsToComplete", message: errorGoalMessages.NoRepetition });
-    } else if (repetitionsToComplete === 0) {
+    } else if (sets === 0) {
       errors.push({ field: "repetitionsToComplete", message: errorGoalMessages.RepetitionIsZero });
     }
   }
-  if (completionType === "time" && !timeToComplete) {
-    if (!timeToComplete) {
+  if (measure === "time" && !seconds && !minutes) {
+    if (!seconds && !minutes) {
       errors.push({ field: "timeToComplete", message: errorGoalMessages.NoTime });
-    } else if (timeToComplete === 0) {
+    } else if (seconds === 0 && minutes === 0) {
       errors.push({ field: "timeToComplete", message: errorGoalMessages.TimeIsZero });
     }
   }
 
-  if (errors.length > 0) {
+  if (errors.length > 0 || !repetitions || !measure || !daysOfWeek) {
     return { goal: null, errors: errors };
   }
   //basic attrs
   const id = uid(16);
   const completed = false;
   const itGoalPortion = 0;
-  portions = portions || 1;
+  repetitions = repetitions || 1;
   category = category || "work";
-  durationType = durationType || "month";
+  frequency = frequency || "monthly";
 
   //dates
-  const initialDateObj = dayjs().startOf("day");
+  let initialDateObj = dayjs().startOf("day");
   let finalDateObj = initialDateObj;
   const initialDate = initialDateObj.toString();
 
   const goalPortions: GoalPortion[] = [];
 
-  if (durationType === "day") {
-    for (let i = 0; i < portions; i++) {
+  if (frequency === "daily") {
+    for (let i = 0; i < repetitions; i++) {
       finalDateObj = initialDateObj.endOf("day");
       goalPortions.push({
         initialDate: initialDateObj.toString(),
@@ -84,46 +90,55 @@ const createGoal = ({
       });
       initialDateObj.add(1, "day");
     }
-  } else if (durationType === "week") {
-    for (let i = 0; i < portions; i++) {
+  } else if (frequency === "weekly") {
+    for (let i = 0; i < repetitions; i++) {
       finalDateObj = initialDateObj.endOf("week");
       goalPortions.push({
         initialDate: initialDateObj.toString(),
         finalDate: finalDateObj.toString(),
         completionState: false,
       });
-      initialDateObj.add(1, "week");
+      initialDateObj = initialDateObj.add(7, "day");
     }
   } else {
-    for (let i = 0; i < portions; i++) {
+    for (let i = 0; i < repetitions; i++) {
       finalDateObj = initialDateObj.endOf("month");
       goalPortions.push({
         initialDate: initialDateObj.toString(),
         finalDate: finalDateObj.toString(),
         completionState: false,
       });
-      initialDateObj.add(1, "month");
+      initialDateObj.add(30, "day");
     }
   }
 
   const finalDate = finalDateObj.toString();
 
+  let time: number | null = null;
+  if (minutes || seconds) {
+    time = minutes * 60 + seconds;
+  }
+
+  if (frequency === "monthly" || frequency === "weekly") {
+    daysOfWeek = null;
+  }
+
   //creation of goal
   const goal: Goal = {
     id,
     name,
-    portions,
+    repetitions,
     category,
-    durationType,
+    frequency,
     completed,
-    completionType,
+    measure,
     daysOfWeek,
     initialDate,
     finalDate,
     goalPortions,
     itGoalPortion,
-    repetitionsToComplete,
-    timeToComplete,
+    sets,
+    time,
   };
 
   return { goal: goal, errors: null };
