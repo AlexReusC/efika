@@ -5,6 +5,7 @@ import en from "../src/localization/translations/en";
 interface I18Namespaces {
   navigation: typeof es.navigation;
   home: typeof es.home;
+  createGoal: typeof es.createGoal;
 }
 
 declare module "i18next" {

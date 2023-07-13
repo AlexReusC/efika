@@ -21,13 +21,32 @@ const homeStyle = StyleSheet.create({
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
     paddingHorizontal: "7%",
-    paddingTop: "10%",
   },
   goalsSectionText: {
+    height: "20%",
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
   },
-  goalsSectionCards: {},
+  goalsSectionCards: {
+    height: "80%",
+  },
+  modalSection: {
+    alignItems: "center",
+    backgroundColor: "white",
+    margin: 20,
+    borderRadius: 20,
+    padding: 35,
+  },
+  //TODO: Improve round style
+  roundButton: {
+    borderRadius: 100,
+    width: 40,
+    height: 40,
+    backgroundColor: Colors.lightBlue,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 export default homeStyle;

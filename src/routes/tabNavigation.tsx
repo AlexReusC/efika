@@ -11,7 +11,10 @@ const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
   const { t } = useTranslation();
   return (
-    <Tab.Navigator initialRouteName="Home" screenOptions={{ tabBarActiveTintColor: "black" }}>
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{ tabBarHideOnKeyboard: true, tabBarActiveTintColor: "black" }}
+    >
       <Tab.Screen
         name={t("navigation:Home")}
         component={HomeNavigation}
