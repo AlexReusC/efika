@@ -1,6 +1,32 @@
-type Category = "work" | "sports" | "health" | "culture" | "finance";
+type Category = "work" | "sports" | "health" | "culture" | "money";
+type DayOfWeek = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
+type Frequency = "daily" | "weekly" | "monthly";
+type Measure = "time" | "sets";
 type CompletionType = "normal" | "repetition" | "time";
 type DurationType = "day" | "month" | "year";
+
+interface CategoryObject {
+  name: Category;
+  icon: any;
+  active: boolean;
+}
+
+interface FrequencyObject {
+  name: Frequency;
+  icon: any;
+  active: boolean;
+}
+
+interface MeasureObject {
+  name: Measure;
+  icon: any;
+  active: boolean;
+}
+
+interface DayOfWeekObject {
+  name: DayOfWeek;
+  active: boolean;
+}
 
 interface GoalPortion {
   initialDate: string;
