@@ -25,6 +25,7 @@ const CreateGoal: React.FC = () => {
   const [seconds, setSeconds] = useState<string | null>(null);
   const [tmpSets, setTmpSets] = useState<string | null>(null);
   const [sets, setSets] = useState<string | null>(null);
+  const [active, setActive] = useState(false);
   const ref_input2 = useRef<TextInput | null>(null);
   const { t } = useTranslation();
 
@@ -232,6 +233,7 @@ const CreateGoal: React.FC = () => {
               }}
               maxLength={3}
               keyboardType="numeric"
+              placeholderTextColor="#CACACA"
               style={createGoalStyle.textInputModal}
             />
           </View>
@@ -350,8 +352,14 @@ const CreateGoal: React.FC = () => {
           </View>
         </View>
         <View style={createGoalStyle.createGoalButtonBlock}>
-          <TouchableOpacity style={createGoalStyle.createGoalButton}>
-            <Text style={createGoalStyle.createGoalButtonText}>{t("createGoal:createGoal")}</Text>
+          <TouchableOpacity
+            style={active ? createGoalStyle.createGoalButtonActive : createGoalStyle.createGoalButtonInactive}
+          >
+            <Text
+              style={active ? createGoalStyle.createGoalButtonTextActive : createGoalStyle.createGoalButtonTextInactive}
+            >
+              {t("createGoal:createGoal")}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
