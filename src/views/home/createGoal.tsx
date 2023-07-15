@@ -183,9 +183,7 @@ const CreateGoal: React.FC = () => {
       minutesProp: minutes,
       secondsProp: seconds,
     });
-    console.log(newGoal);
     if (newGoal.goal) {
-      console.log(newGoal.goal);
       dispatch(create(newGoal.goal));
     }
   };

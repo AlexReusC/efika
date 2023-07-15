@@ -50,7 +50,7 @@ interface Goal {
   category: Category;
   measure: Measure | null;
   frequency: Frequency;
-  daysOfWeek: DayOfWeek[] | null;
+  daysOfWeek: number[] | null;
   sets: number | null;
   time: number | null;
   initialDate: string; //change to some type of date

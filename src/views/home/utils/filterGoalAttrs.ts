@@ -8,7 +8,7 @@ interface FilterGoalAttrsProps {
 interface FilteredAttrs {
   category: Category | null;
   frequency: Frequency | null;
-  daysOfWeek: DayOfWeek[] | null;
+  daysOfWeek: number[] | null;
   measure: Measure | null;
 }
 
@@ -17,9 +17,9 @@ const filterGoalAttrs = ({ categories, frequencies, daysOfWeekArr, measures }: F
   const category = categoryArr.length > 0 ? categoryArr[0] : null;
   const frequencyArr = frequencies.filter((x) => x.active).map((x) => x.name);
   const frequency = frequencyArr.length > 0 ? frequencyArr[0] : null;
-  let daysOfWeek: DayOfWeek[] | null;
+  let daysOfWeek: number[] | null;
   if (frequency) {
-    const daysOfWeekFiltered = daysOfWeekArr.filter((x) => x.active).map((x) => x.name);
+    const daysOfWeekFiltered = daysOfWeekArr.filter((x) => x.active).map((x) => x.id);
     daysOfWeek = daysOfWeekFiltered.length > 0 ? daysOfWeekFiltered : null;
   } else {
     daysOfWeek = null;

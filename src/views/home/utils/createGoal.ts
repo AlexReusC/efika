@@ -7,7 +7,7 @@ interface CreateGoalProps {
   repetitionsProp: string | null;
   category: Category | null;
   frequency: Frequency | null;
-  daysOfWeek: DayOfWeek[] | null;
+  daysOfWeek: number[] | null;
   measure: Measure | null;
   setsProp: string | null;
   minutesProp: string | null;
@@ -62,16 +62,13 @@ const createGoal = ({
     }
   }
 
-  if (errors.length > 0 || !repetitions ) {
+  if (errors.length > 0 || !repetitions || !category || !frequency || !daysOfWeek) {
     return { goal: null, errors: errors };
   }
   //basic attrs
   const id = uid(16);
   const completed = false;
   const itGoalPortion = 0;
-  repetitions = repetitions || 1;
-  category = category || "work";
-  frequency = frequency || "monthly";
 
   //dates
   let initialDateObj = dayjs().startOf("day");
@@ -82,33 +79,36 @@ const createGoal = ({
 
   if (frequency === "daily") {
     for (let i = 0; i < repetitions; i++) {
+      while (!daysOfWeek.includes(initialDateObj.get("day"))) {
+        initialDateObj = initialDateObj.add(1, "day");
+      }
       finalDateObj = initialDateObj.endOf("day");
       goalPortions.push({
         initialDate: initialDateObj.toString(),
-        finalDate: initialDateObj.toString(),
-        completionState: false,
+        finalDate: finalDateObj.toString(),
+        completionState: measure ? 0 : false,
       });
-      initialDateObj.add(1, "day");
+      initialDateObj = finalDateObj.add(1, "day").startOf("day");
     }
   } else if (frequency === "weekly") {
     for (let i = 0; i < repetitions; i++) {
-      finalDateObj = initialDateObj.endOf("week");
+      finalDateObj = initialDateObj.add(6, "day").endOf("day");
       goalPortions.push({
         initialDate: initialDateObj.toString(),
         finalDate: finalDateObj.toString(),
-        completionState: false,
+        completionState: measure ? 0 : false,
       });
-      initialDateObj = initialDateObj.add(7, "day");
+      initialDateObj = finalDateObj.add(1, "day").startOf("day");
     }
   } else {
     for (let i = 0; i < repetitions; i++) {
-      finalDateObj = initialDateObj.endOf("month");
+      finalDateObj = initialDateObj.add(29, "day").endOf("day");
       goalPortions.push({
         initialDate: initialDateObj.toString(),
         finalDate: finalDateObj.toString(),
-        completionState: false,
+        completionState: measure ? 0 : false,
       });
-      initialDateObj.add(30, "day");
+      initialDateObj = initialDateObj.add(1, "day").startOf("day");
     }
   }
 
