@@ -29,7 +29,6 @@ const CreateGoal: React.FC = () => {
   const [seconds, setSeconds] = useState<string | null>(null);
   const [tmpSets, setTmpSets] = useState<string | null>(null);
   const [sets, setSets] = useState<string | null>(null);
-  const [active, setActive] = useState(false);
   const ref_input2 = useRef<TextInput | null>(null);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -165,6 +164,16 @@ const CreateGoal: React.FC = () => {
     setDaysOfWeekArr(newDaysOfWeek);
   };
 
+  const isActive = () => {
+    const { category, frequency } = filterGoalAttrs({
+      categories,
+      daysOfWeekArr,
+      frequencies,
+      measures,
+    });
+    return name && repetitions && category && frequency;
+  };
+
   const addNewGoal = () => {
     const { category, daysOfWeek, frequency, measure } = filterGoalAttrs({
       categories,
@@ -275,7 +284,16 @@ const CreateGoal: React.FC = () => {
         <View style={createGoalStyle.nameAndReps}>
           <TextInput
             value={name}
-            onChange={(event) => setName(event.nativeEvent.text)}
+            onChangeText={(text) => {
+              if (text.length === 0) {
+                setName(text);
+              } else {
+                const regexRule = /^[\w]+$/;
+                if (regexRule.test(text)) {
+                  setName(text);
+                }
+              }
+            }}
             style={createGoalStyle.textInput}
             maxLength={20}
             placeholder={t("createGoal:nameOfYourGoal")}
@@ -381,11 +399,13 @@ const CreateGoal: React.FC = () => {
         </View>
         <View style={createGoalStyle.createGoalButtonBlock}>
           <TouchableOpacity
-            style={active ? createGoalStyle.createGoalButtonActive : createGoalStyle.createGoalButtonInactive}
+            style={isActive() ? createGoalStyle.createGoalButtonActive : createGoalStyle.createGoalButtonInactive}
             onPress={() => addNewGoal()}
           >
             <Text
-              style={active ? createGoalStyle.createGoalButtonTextActive : createGoalStyle.createGoalButtonTextInactive}
+              style={
+                isActive() ? createGoalStyle.createGoalButtonTextActive : createGoalStyle.createGoalButtonTextInactive
+              }
             >
               {t("createGoal:createGoal")}
             </Text>
