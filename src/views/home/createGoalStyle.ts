@@ -35,9 +35,9 @@ const createGoalStyle = StyleSheet.create({
   header: {
     alignItems: "center",
     justifyContent: "space-between",
-    height: heightScreen * 0.32,
+    height: heightScreen * 0.35,
     paddingBottom: "8%",
-    paddingTop: "4%",
+    paddingTop: "8%",
     backgroundColor: colors.softBlue,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
@@ -160,7 +160,7 @@ const createGoalStyle = StyleSheet.create({
   },
   createGoalButtonBlock: {
     alignItems: "center",
-    marginVertical: "10%",
+    marginVertical: "5%",
     width: "100%",
   },
   createGoalButtonActive: {

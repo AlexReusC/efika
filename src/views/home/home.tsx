@@ -45,8 +45,8 @@ const Home: React.FC = () => {
       <StatusBar />
       <View style={homeStyle.titleSection}>
         <View style={homeStyle.titleSectionIcon}>
-          <TouchableOpacity onPress={() => navigation.navigate("Create Goal")}>
-            <Ionicons name={"add-circle-outline"} />
+          <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+            <Ionicons name={"settings-outline"} />
           </TouchableOpacity>
         </View>
         <View style={homeStyle.titleSectionText}>
