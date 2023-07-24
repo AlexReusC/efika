@@ -5,7 +5,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import Progress from "../views/progress/progress";
 import HomeNavigation from "./homeNavigation";
-import CreateGoal from "../views/home/createGoal";
+import CreateGoal from "../views/createGoal/createGoal";
 import colors from "../constants/colors";
 
 const Tab = createBottomTabNavigator();
