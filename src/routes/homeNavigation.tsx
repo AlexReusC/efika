@@ -4,7 +4,7 @@ import Home from "../views/home/home";
 import Settings from "../views/settings/settings";
 
 export type StackHomeNavigation = {
-  Home: undefined;
+  ActiveGoals: undefined;
   Settings: undefined;
 };
 
@@ -12,8 +12,8 @@ const Stack = createStackNavigator();
 
 const HomeNavigation = () => {
   return (
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" options={{ headerShown: false }} component={Home} />
+    <Stack.Navigator initialRouteName="ActiveGoals">
+      <Stack.Screen name="ActiveGoals" options={{ headerShown: false }} component={Home} />
       <Stack.Screen name="Settings" component={Settings} />
     </Stack.Navigator>
   );

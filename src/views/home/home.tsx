@@ -22,7 +22,6 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<homeNavigationProp>();
   const myGoals = useSelector((state: RootState) => state.goals.value);
-  console.log(myGoals);
   const dispatch = useDispatch();
   const [modalShown, toggleModal] = useState<boolean>(false);
   const [currentGoal, setCurrentGoal] = useState<Goal | null>(null);

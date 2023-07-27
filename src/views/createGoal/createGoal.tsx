@@ -5,13 +5,18 @@ import Modal from "react-native-modal";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { create } from "../../state/goalsSlicer";
+import { TabBarNavigation } from "../../routes/tabNavigation";
 
 import createGoalStyle from "./createGoalStyle";
 import createGoal from "./utils/createGoal";
 import filterGoalAttrs from "./utils/filterGoalAttrs";
 import { categoriesUtil, frequenciesUtil, measuresUtil, daysOfWeekUtil } from "./utils/createGoalUtils";
+
+type TabNavigationProp = BottomTabNavigationProp<TabBarNavigation>;
 
 const CreateGoal: React.FC = () => {
   const [timeModalShown, toggleTimeModal] = useState(false);
@@ -29,6 +34,7 @@ const CreateGoal: React.FC = () => {
   const [seconds, setSeconds] = useState<string | null>(null);
   const [tmpSets, setTmpSets] = useState<string | null>(null);
   const [sets, setSets] = useState<string | null>(null);
+  const navigation = useNavigation<TabNavigationProp>();
   const ref_input2 = useRef<TextInput | null>(null);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -194,6 +200,7 @@ const CreateGoal: React.FC = () => {
     });
     if (newGoal.goal) {
       dispatch(create(newGoal.goal));
+      navigation.navigate("Home");
     }
   };
 

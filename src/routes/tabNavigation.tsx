@@ -8,6 +8,12 @@ import HomeNavigation from "./homeNavigation";
 import CreateGoal from "../views/createGoal/createGoal";
 import colors from "../constants/colors";
 
+export type TabBarNavigation = {
+  Home: undefined;
+  CreateGoal: undefined;
+  Progress: undefined;
+};
+
 const Tab = createBottomTabNavigator();
 
 const CustomTabBarButton = ({ children, onPress }: any): any => (
@@ -34,7 +40,7 @@ const TabNavigation = () => {
       }}
     >
       <Tab.Screen
-        name={t("navigation:Home")}
+        name="Home"
         component={HomeNavigation}
         options={{
           headerShown: false,
@@ -47,16 +53,17 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name={t("navigation:createGoal")}
+        name="CreateGoal"
         component={CreateGoal}
         options={{
+          unmountOnBlur: true,
           headerShown: false,
           tabBarIcon: () => <Ionicons size={30} name={"add"} />,
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
         }}
       />
       <Tab.Screen
-        name={t("navigation:Progress")}
+        name="Progress"
         component={Progress}
         options={{
           tabBarIcon: ({ focused }) => (
