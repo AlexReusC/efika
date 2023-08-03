@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import Progress from "../views/progress/progress";
 import HomeNavigation from "./homeNavigation";
 import CreateGoal from "../views/createGoal/createGoal";
-import colors from "../constants/colors";
+import Colors from "../constants/colors";
 
 export type TabBarNavigation = {
   Home: undefined;
@@ -21,7 +21,7 @@ const CustomTabBarButton = ({ children, onPress }: any): any => (
     style={{ top: -20, justifyContent: "center", alignItems: "center", width: "15%" }}
     onPress={onPress}
   >
-    <View style={{ width: "100%", height: "100%", borderRadius: 35, backgroundColor: colors.lightBlue }}>
+    <View style={{ width: "100%", height: "100%", borderRadius: 35, backgroundColor: Colors.lightBlue }}>
       {children}
     </View>
   </TouchableOpacity>
@@ -58,7 +58,7 @@ const TabNavigation = () => {
         options={{
           unmountOnBlur: true,
           headerShown: false,
-          tabBarIcon: () => <Ionicons size={30} name={"add"} />,
+          tabBarIcon: () => <Ionicons color={Colors.white} size={30} name={"add"} />,
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
         }}
       />
@@ -77,7 +77,7 @@ const TabNavigation = () => {
             color: "#5D4D4A",
           },
           headerStyle: {
-            borderColor: colors.gray,
+            borderColor: Colors.gray,
             borderBottomWidth: 1,
           },
         }}

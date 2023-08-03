@@ -15,6 +15,7 @@ import createGoalStyle from "./createGoalStyle";
 import createGoal from "./utils/createGoal";
 import filterGoalAttrs from "./utils/filterGoalAttrs";
 import { categoriesUtil, frequenciesUtil, measuresUtil, daysOfWeekUtil } from "./utils/createGoalUtils";
+import Colors from "../../constants/colors";
 
 type TabNavigationProp = BottomTabNavigationProp<TabBarNavigation>;
 
@@ -253,7 +254,11 @@ const CreateGoal: React.FC = () => {
             />
           </View>
           <TouchableOpacity style={createGoalStyle.roundButton} onPress={() => closeTimeModal()}>
-            {tmpSeconds || tmpMinutes ? <Ionicons name={"checkmark"} /> : <Ionicons name={"close-outline"} />}
+            {tmpSeconds || tmpMinutes ? (
+              <Ionicons color={Colors.white} name={"checkmark"} />
+            ) : (
+              <Ionicons color={Colors.white} name={"close-outline"} />
+            )}
           </TouchableOpacity>
         </View>
       </Modal>
@@ -282,7 +287,11 @@ const CreateGoal: React.FC = () => {
             />
           </View>
           <TouchableOpacity style={createGoalStyle.roundButton} onPress={() => closeSetsModal()}>
-            {tmpSets ? <Ionicons name={"checkmark"} /> : <Ionicons name={"close-outline"} />}
+            {tmpSets ? (
+              <Ionicons color={Colors.white} name={"checkmark"} />
+            ) : (
+              <Ionicons color={Colors.white} name={"close-outline"} />
+            )}
           </TouchableOpacity>
         </View>
       </Modal>
