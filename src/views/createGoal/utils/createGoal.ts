@@ -14,6 +14,8 @@ interface CreateGoalProps {
   secondsProp: string | null;
 }
 
+const WAITING = "waiting";
+
 const createGoal = ({
   name,
   category,
@@ -86,7 +88,7 @@ const createGoal = ({
       goalPortions.push({
         initialDate: initialDateObj.toString(),
         finalDate: finalDateObj.toString(),
-        completionState: measure ? 0 : false,
+        completionState: WAITING,
       });
       initialDateObj = finalDateObj.add(1, "day").startOf("day");
     }
@@ -96,7 +98,7 @@ const createGoal = ({
       goalPortions.push({
         initialDate: initialDateObj.toString(),
         finalDate: finalDateObj.toString(),
-        completionState: measure ? 0 : false,
+        completionState: WAITING,
       });
       initialDateObj = finalDateObj.add(1, "day").startOf("day");
     }
@@ -106,7 +108,7 @@ const createGoal = ({
       goalPortions.push({
         initialDate: initialDateObj.toString(),
         finalDate: finalDateObj.toString(),
-        completionState: measure ? 0 : false,
+        completionState: WAITING,
       });
       initialDateObj = initialDateObj.add(1, "day").startOf("day");
     }

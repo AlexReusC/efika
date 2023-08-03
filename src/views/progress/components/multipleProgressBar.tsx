@@ -5,38 +5,43 @@ import { AnimatedCircularProgress } from "react-native-circular-progress";
 import Colors from "../../../constants/colors";
 
 interface MultipleProgressBarProps {
-  goal: Goal | null;
+  timesCompleted: number;
+  timesPartial: number;
+  timesUncompleted: number;
 }
 
-const MultipleProgressBar: React.FC<MultipleProgressBarProps> = () => {
+const MultipleProgressBar: React.FC<MultipleProgressBarProps> = ({
+  timesCompleted,
+  timesPartial,
+  timesUncompleted,
+}) => {
   return (
     <View>
-      <AnimatedCircularProgress fill={24} size={120} width={15} rotation={0} tintColor={Colors.green} duration={400} />
       <AnimatedCircularProgress
-        fill={24}
+        fill={timesCompleted * 100}
+        size={120}
+        width={15}
+        rotation={0}
+        backgroundColor={Colors.lightGray}
+        tintColor={Colors.green}
+        duration={400}
+      />
+      <AnimatedCircularProgress
+        fill={timesPartial * 100}
         delay={100}
-        rotation={90}
+        rotation={timesCompleted * 360}
         size={120}
         width={15}
         tintColor={Colors.yellow}
         style={{ position: "absolute" }}
       />
       <AnimatedCircularProgress
-        fill={24}
+        fill={timesUncompleted * 100}
         delay={100}
-        rotation={180}
+        rotation={timesCompleted * 360 + timesPartial * 360}
         size={120}
         width={15}
         tintColor={Colors.red}
-        style={{ position: "absolute" }}
-      />
-      <AnimatedCircularProgress
-        fill={24}
-        delay={100}
-        rotation={270}
-        size={120}
-        width={15}
-        tintColor={Colors.lightGray}
         style={{ position: "absolute" }}
       />
     </View>

@@ -11,6 +11,7 @@ type GoalFields =
   | "completion"
   | "repetitionsToComplete"
   | "timeToComplete";
+type CompletionState = "waiting" | "completed" | "partial" | "uncompleted";
 
 interface CategoryObject {
   name: Category;
@@ -39,7 +40,7 @@ interface DayOfWeekObject {
 interface GoalPortion {
   initialDate: string;
   finalDate: string;
-  completionState: number | boolean; //keeps time, repetitons or boolean value
+  completionState: CompletionState;
 }
 
 interface Goal {

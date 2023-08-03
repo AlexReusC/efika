@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../state/store";
+import { useTranslation } from "react-i18next";
 
 import progressStyle from "./progressStyle";
 import GoalProgressCard from "./components/goalProgressCard";
@@ -16,6 +16,7 @@ const categoriesIcons = categoriesUtil.reduce<Record<Category, any>>((r, o) => {
 }, {} as Record<Category, any>);
 
 const Progress: React.FC = () => {
+  const { t } = useTranslation();
   const [modalShown, toggleModal] = useState<boolean>(false);
   const [currentGoal, setCurrentGoal] = useState<Goal | null>(null);
   const myGoals: Goal[] = useSelector((state: RootState) => state.goals.value);
@@ -34,12 +35,12 @@ const Progress: React.FC = () => {
       </Modal>
       <View style={progressStyle.mainView}>
         <View style={progressStyle.header}>
-          <Text>Selecciona una meta para ver tu progreso:</Text>
+          <Text style={progressStyle.headerText}>{t("progress:selectGoal")}</Text>
         </View>
         <View style={progressStyle.goals}>
           {currentGoals.length !== 0 ? (
             <View>
-              <Text>Actuales:</Text>
+              <Text style={progressStyle.title}>{t("progress:current")}</Text>
               {currentGoals.map((goal: Goal) => (
                 <GoalProgressCard
                   key={goal.id}
@@ -52,7 +53,7 @@ const Progress: React.FC = () => {
           ) : null}
           {completedGoals.length !== 0 ? (
             <View>
-              <Text>Pasadas:</Text>
+              <Text style={progressStyle.title}>{t("progress:past")}</Text>
               {completedGoals.map((goal: Goal) => (
                 <GoalProgressCard
                   key={goal.id}

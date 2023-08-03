@@ -72,6 +72,14 @@ const TabNavigation = () => {
               <Text>{t("navigation:PROGRESS")}</Text>
             </View>
           ),
+          headerTitleStyle: {
+            fontSize: 36,
+            color: "#5D4D4A",
+          },
+          headerStyle: {
+            borderColor: colors.gray,
+            borderBottomWidth: 1,
+          },
         }}
       />
     </Tab.Navigator>

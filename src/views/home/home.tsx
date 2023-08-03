@@ -11,7 +11,7 @@ import { StackHomeNavigation } from "../../routes/homeNavigation";
 
 import type { RootState } from "../../state/store";
 import { useDispatch } from "react-redux";
-import { create, deleteAll } from "../../state/goalsSlicer";
+import { create, deleteAll, addExamples } from "../../state/goalsSlicer";
 import Card from "./components/card";
 
 import goals from "./utils/test";
@@ -53,6 +53,9 @@ const Home: React.FC = () => {
           <Text>{t("home:toContinue")}</Text>
           <TouchableOpacity onPress={() => dispatch(deleteAll())}>
             <Text>Delete All (Debug)</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => dispatch(addExamples())}>
+            <Text>Populate (Debug)</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -9,14 +9,28 @@ const modalContentStyle = StyleSheet.create({
     borderRadius: 20,
     padding: 35,
   },
+  titleView: {
+    marginBottom: "5%",
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: "500",
+  },
   percentageRow: {
     flexDirection: "row",
+    marginVertical: "1%",
     alignItems: "center",
+  },
+  placeholder: {
+    width: "2%",
   },
   roundButton: {
     borderRadius: 100,
     width: 20,
     height: 20,
+  },
+  percentages: {
+    marginVertical: "5%",
   },
   greenButton: {
     backgroundColor: Colors.green,
