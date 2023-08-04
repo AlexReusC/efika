@@ -15,6 +15,7 @@ import { create, deleteAll, addExamples } from "../../state/goalsSlicer";
 import Card from "./components/card";
 
 import goals from "./utils/test";
+import Colors from "../../constants/colors";
 
 type homeNavigationProp = StackNavigationProp<StackHomeNavigation>;
 
@@ -37,7 +38,7 @@ const Home: React.FC = () => {
         <View style={homeStyle.modalSection}>
           <Text>{JSON.stringify(currentGoal)}</Text>
           <TouchableOpacity style={homeStyle.roundButton} onPress={() => toggleModal(false)}>
-            <Ionicons name={"close-outline"} />
+            <Ionicons name={"close-outline"} color={Colors.white} />
           </TouchableOpacity>
         </View>
       </Modal>
@@ -45,12 +46,12 @@ const Home: React.FC = () => {
       <View style={homeStyle.titleSection}>
         <View style={homeStyle.titleSectionIcon}>
           <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-            <Ionicons name={"settings-outline"} />
+            <Ionicons name={"settings-outline"} size={32} />
           </TouchableOpacity>
         </View>
         <View style={homeStyle.titleSectionText}>
-          <Text>{t("home:ready")}</Text>
-          <Text>{t("home:toContinue")}</Text>
+          <Text style={homeStyle.titleText}>{t("home:ready")}</Text>
+          <Text style={homeStyle.titleText}>{t("home:toContinue")}</Text>
           <TouchableOpacity onPress={() => dispatch(deleteAll())}>
             <Text>Delete All (Debug)</Text>
           </TouchableOpacity>
@@ -61,8 +62,10 @@ const Home: React.FC = () => {
       </View>
       <View style={homeStyle.goalsSection}>
         <View style={homeStyle.goalsSectionText}>
-          <Text>{t("home:activeGoals")}</Text>
-          <Text>0</Text>
+          <Text style={homeStyle.titleText}>{t("home:activeGoals")}</Text>
+          <View style={homeStyle.roundScore}>
+            <Text>0</Text>
+          </View>
         </View>
         <ScrollView style={homeStyle.goalsSectionCards} horizontal={true}>
           <Card goal={goals[0]} pressAction={openModal} />
