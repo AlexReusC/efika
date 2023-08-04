@@ -21,7 +21,7 @@ const CustomTabBarButton = ({ children, onPress }: any): any => (
     style={{ top: -20, justifyContent: "center", alignItems: "center", width: "15%" }}
     onPress={onPress}
   >
-    <View style={{ width: "100%", height: "100%", borderRadius: 35, backgroundColor: Colors.lightBlue }}>
+    <View style={{ width: "100%", height: "100%", borderRadius: 35, backgroundColor: Colors.mainBlue }}>
       {children}
     </View>
   </TouchableOpacity>

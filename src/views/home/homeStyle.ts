@@ -3,7 +3,7 @@ import Colors from "../../constants/colors";
 
 const homeStyle = StyleSheet.create({
   screen: {
-    backgroundColor: Colors.lightBlue,
+    backgroundColor: Colors.mainBlue,
   },
   titleSection: {
     height: "35%",
@@ -43,7 +43,7 @@ const homeStyle = StyleSheet.create({
     borderRadius: 100,
     width: 40,
     height: 40,
-    backgroundColor: Colors.lightBlue,
+    backgroundColor: Colors.mainBlue,
     justifyContent: "center",
     alignItems: "center",
   },
