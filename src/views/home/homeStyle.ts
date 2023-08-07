@@ -26,6 +26,16 @@ const homeStyle = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  completeBlock: {
+    width: "80%",
+  },
+  roundButtonNormal: {
+    borderRadius: 100,
+    height: 40,
+    backgroundColor: Colors.mainBlue,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   goalsSection: {
     height: "65%",
     backgroundColor: Colors.white,
@@ -47,7 +57,7 @@ const homeStyle = StyleSheet.create({
     backgroundColor: "white",
     margin: 20,
     borderRadius: 20,
-    padding: 35,
+    padding: "5%",
   },
   //TODO: Improve round style
   roundButton: {

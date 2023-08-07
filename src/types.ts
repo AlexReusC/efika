@@ -41,6 +41,7 @@ interface GoalPortion {
   initialDate: string;
   finalDate: string;
   completionState: CompletionState;
+  measure: number;
 }
 
 interface Goal {

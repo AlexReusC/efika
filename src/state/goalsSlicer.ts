@@ -11,6 +11,11 @@ const initialState: GoalsState = {
   value: [],
 };
 
+interface MeasureGoalPortion {
+  id: string;
+  measure: number;
+}
+
 export const goalsSlice = createSlice({
   name: "goals",
   initialState,
@@ -24,9 +29,25 @@ export const goalsSlice = createSlice({
     deleteAll: (state) => {
       state.value = [];
     },
+    changeMeasureGoalPortion: (state, action: PayloadAction<MeasureGoalPortion>) => {
+      state.value = state.value.map((item) => {
+        if (item.id === action.payload.id) {
+          return {
+            ...item,
+            goalPortions: [
+              ...item.goalPortions.slice(0, item.itGoalPortion),
+              { ...item.goalPortions[item.itGoalPortion], measure: action.payload.measure },
+              ...item.goalPortions.slice(item.itGoalPortion + 1),
+            ],
+          };
+        } else {
+          return item;
+        }
+      });
+    },
   },
 });
 
-export const { create, deleteAll, addExamples } = goalsSlice.actions;
+export const { create, deleteAll, addExamples, changeMeasureGoalPortion } = goalsSlice.actions;
 
 export default goalsSlice.reducer;

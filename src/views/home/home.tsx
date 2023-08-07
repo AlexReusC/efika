@@ -13,6 +13,9 @@ import type { RootState } from "../../state/store";
 import { useDispatch } from "react-redux";
 import { create, deleteAll, addExamples } from "../../state/goalsSlicer";
 import Card from "./components/card";
+import NormalView from "./components/normalView";
+import SetsView from "./components/setsView";
+import TimeView from "./components/timeView";
 
 import goals from "./utils/test";
 import Colors from "../../constants/colors";
@@ -36,7 +39,9 @@ const Home: React.FC = () => {
     <View style={homeStyle.screen}>
       <Modal isVisible={modalShown} onBackdropPress={() => toggleModal(false)} animationOut={"fadeOutDownBig"}>
         <View style={homeStyle.modalSection}>
-          <Text>{JSON.stringify(currentGoal)}</Text>
+          {!currentGoal?.measure && <NormalView goal={currentGoal} />}
+          {currentGoal?.measure === "sets" && <SetsView goal={currentGoal} />}
+          {currentGoal?.measure === "time" && <TimeView goal={currentGoal} />}
           <TouchableOpacity style={homeStyle.roundButton} onPress={() => toggleModal(false)}>
             <Ionicons name={"close-outline"} color={Colors.white} />
           </TouchableOpacity>
@@ -64,13 +69,13 @@ const Home: React.FC = () => {
         <View style={homeStyle.goalsSectionText}>
           <Text style={homeStyle.titleText}>{t("home:activeGoals")}</Text>
           <View style={homeStyle.roundScore}>
-            <Text>0</Text>
+            <Text>{myGoals.length}</Text>
           </View>
         </View>
         <ScrollView style={homeStyle.goalsSectionCards} horizontal={true}>
-          <Card goal={goals[0]} pressAction={openModal} />
-          <Card goal={goals[1]} pressAction={openModal} />
-          <Card goal={goals[2]} pressAction={openModal} />
+          {myGoals.map((goal: Goal) => (
+            <Card key={goal.id} goal={goal} pressAction={openModal} />
+          ))}
         </ScrollView>
       </View>
     </View>

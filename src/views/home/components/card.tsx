@@ -11,6 +11,16 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ goal, pressAction }) => {
+  const currentMeasure = goal.goalPortions[goal.itGoalPortion].measure;
+  let fill = 1;
+  if (!goal.measure) {
+    fill = currentMeasure / 1;
+  } else if (goal.measure === "sets") {
+    fill = currentMeasure / (goal.sets || 1);
+  } else if (goal.measure === "time") {
+    fill = currentMeasure / (goal.time || 1);
+  }
+
   return (
     <TouchableOpacity onPress={() => pressAction(goal)} style={cardStyle.card}>
       <View style={cardStyle.topPart}>
@@ -18,7 +28,7 @@ const Card: React.FC<CardProps> = ({ goal, pressAction }) => {
       </View>
       <View style={cardStyle.middlePart}>
         <AnimatedCircularProgress
-          fill={70}
+          fill={Math.trunc(fill * 100)}
           size={120}
           width={15}
           rotation={0}
@@ -30,7 +40,7 @@ const Card: React.FC<CardProps> = ({ goal, pressAction }) => {
         </AnimatedCircularProgress>
       </View>
       <View>
-        <Text style={cardStyle.endDate}>Termina: 20 de junio 2023</Text>
+        <Text style={cardStyle.endDate}>Termina: {goal.goalPortions[goal.itGoalPortion].finalDate}</Text>
       </View>
     </TouchableOpacity>
   );

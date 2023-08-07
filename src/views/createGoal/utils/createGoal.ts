@@ -89,6 +89,7 @@ const createGoal = ({
         initialDate: initialDateObj.toString(),
         finalDate: finalDateObj.toString(),
         completionState: WAITING,
+        measure: 0,
       });
       initialDateObj = finalDateObj.add(1, "day").startOf("day");
     }
@@ -99,6 +100,7 @@ const createGoal = ({
         initialDate: initialDateObj.toString(),
         finalDate: finalDateObj.toString(),
         completionState: WAITING,
+        measure: 0,
       });
       initialDateObj = finalDateObj.add(1, "day").startOf("day");
     }
@@ -109,6 +111,7 @@ const createGoal = ({
         initialDate: initialDateObj.toString(),
         finalDate: finalDateObj.toString(),
         completionState: WAITING,
+        measure: 0,
       });
       initialDateObj = initialDateObj.add(1, "day").startOf("day");
     }
