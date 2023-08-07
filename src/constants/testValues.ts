@@ -8,7 +8,7 @@ const testValues: Goal[] = [
     measure: "sets",
     frequency: "daily",
     daysOfWeek: [1, 2, 3],
-    sets: null,
+    sets: 20,
     time: null,
     initialDate: "01",
     finalDate: "02",

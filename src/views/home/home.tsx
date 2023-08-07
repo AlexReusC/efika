@@ -17,8 +17,8 @@ import NormalView from "./components/normalView";
 import SetsView from "./components/setsView";
 import TimeView from "./components/timeView";
 
-import goals from "./utils/test";
 import Colors from "../../constants/colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type homeNavigationProp = StackNavigationProp<StackHomeNavigation>;
 

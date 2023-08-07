@@ -12,8 +12,9 @@ interface NormalViewProps {
 const NormalView: React.FC<NormalViewProps> = ({ goal }) => {
   const dispatch = useDispatch();
 
-  const [insideMeasure, setInsideMeasure] = useState<number | undefined>(undefined);
-  useEffect(() => setInsideMeasure(goal?.goalPortions[goal.itGoalPortion].measure), []);
+  const [insideMeasure, setInsideMeasure] = useState<number | undefined>(
+    goal?.goalPortions[goal.itGoalPortion].measure
+  );
 
   const changeMeasure = () => {
     setInsideMeasure(1);
