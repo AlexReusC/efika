@@ -29,33 +29,40 @@ const SetsView: React.FC<SetsViewProps> = ({ goal }) => {
 
   const changeMeasure = () => {
     const addition = (insideMeasure || 0) + parseInt(setsTextInput || "0");
-    setInsideMeasure(addition);
-    dispatch(changeMeasureGoalPortion({ id: goal?.id || "", measure: addition }));
+    const constFinalAddition = Math.min(addition, goal?.sets || Infinity);
+    setInsideMeasure(constFinalAddition);
+    dispatch(changeMeasureGoalPortion({ id: goal?.id || "", measure: constFinalAddition }));
   };
 
   return (
     <View style={SetsViewStyle.view}>
-      <Text style={SetsViewStyle.text}>Series hechas:</Text>
-      <Text style={SetsViewStyle.text}>
-        {insideMeasure} / {goal?.sets}
-      </Text>
-      <View style={SetsViewStyle.space}></View>
-      <Text style={SetsViewStyle.text}>Agregar:</Text>
-      <View style={SetsViewStyle.textInputAndButtonRow}>
+      {goal?.sets === insideMeasure ? (
+        <Text style={SetsViewStyle.textCompleted}>Repetición completada</Text>
+      ) : (
         <View>
-          <TextInput
-            placeholder="00"
-            keyboardType="decimal-pad"
-            value={setsTextInput !== null ? setsTextInput : ""}
-            onChangeText={(text) => changeSetsText(text)}
-            style={SetsViewStyle.text}
-          />
-          <View style={SetsViewStyle.line}></View>
+          <Text style={SetsViewStyle.text}>Series hechas:</Text>
+          <Text style={SetsViewStyle.text}>
+            {insideMeasure} / {goal?.sets}
+          </Text>
+          <View style={SetsViewStyle.space}></View>
+          <Text style={SetsViewStyle.text}>Agregar:</Text>
+          <View style={SetsViewStyle.textInputAndButtonRow}>
+            <View>
+              <TextInput
+                placeholder="00"
+                keyboardType="decimal-pad"
+                value={setsTextInput !== null ? setsTextInput : ""}
+                onChangeText={(text) => changeSetsText(text)}
+                style={SetsViewStyle.text}
+              />
+              <View style={SetsViewStyle.line}></View>
+            </View>
+            <TouchableOpacity style={SetsViewStyle.roundButton} onPress={() => changeMeasure()}>
+              <Ionicons color={colors.white} name="add" />
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity style={SetsViewStyle.roundButton} onPress={() => changeMeasure()}>
-          <Ionicons color={colors.white} name="add" />
-        </TouchableOpacity>
-      </View>
+      )}
     </View>
   );
 };
@@ -93,6 +100,10 @@ const SetsViewStyle = StyleSheet.create({
     width: "100%",
     borderBottomColor: colors.gray,
     borderBottomWidth: 1,
+  },
+  textCompleted: {
+    fontSize: 23,
+    color: colors.mainBlue,
   },
 });
 
