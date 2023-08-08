@@ -30,7 +30,7 @@ const testValues: Goal[] = [
     frequency: "daily",
     daysOfWeek: [1, 2, 3],
     sets: null,
-    time: null,
+    time: 527,
     initialDate: "01",
     finalDate: "02",
     itGoalPortion: 0,
