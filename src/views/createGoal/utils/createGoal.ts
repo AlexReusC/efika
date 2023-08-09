@@ -75,7 +75,7 @@ const createGoal = ({
   //dates
   let initialDateObj = dayjs().startOf("day");
   let finalDateObj = initialDateObj;
-  const initialDate = initialDateObj.toString();
+  const initialDate = initialDateObj.toJSON();
 
   const goalPortions: GoalPortion[] = [];
 
@@ -86,8 +86,8 @@ const createGoal = ({
       }
       finalDateObj = initialDateObj.endOf("day");
       goalPortions.push({
-        initialDate: initialDateObj.toString(),
-        finalDate: finalDateObj.toString(),
+        initialDate: initialDateObj.toJSON(),
+        finalDate: finalDateObj.toJSON(),
         completionState: WAITING,
         measure: 0,
       });
@@ -97,8 +97,8 @@ const createGoal = ({
     for (let i = 0; i < repetitions; i++) {
       finalDateObj = initialDateObj.add(6, "day").endOf("day");
       goalPortions.push({
-        initialDate: initialDateObj.toString(),
-        finalDate: finalDateObj.toString(),
+        initialDate: initialDateObj.toJSON(),
+        finalDate: finalDateObj.toJSON(),
         completionState: WAITING,
         measure: 0,
       });
@@ -108,8 +108,8 @@ const createGoal = ({
     for (let i = 0; i < repetitions; i++) {
       finalDateObj = initialDateObj.add(29, "day").endOf("day");
       goalPortions.push({
-        initialDate: initialDateObj.toString(),
-        finalDate: finalDateObj.toString(),
+        initialDate: initialDateObj.toJSON(),
+        finalDate: finalDateObj.toJSON(),
         completionState: WAITING,
         measure: 0,
       });
@@ -117,7 +117,7 @@ const createGoal = ({
     }
   }
 
-  const finalDate = finalDateObj.toString();
+  const finalDate = finalDateObj.toJSON();
 
   let time: number | null = null;
   if (minutes || seconds) {

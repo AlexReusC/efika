@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StatusBar, TouchableOpacity, ScrollView } from "react-native";
 import Modal from "react-native-modal";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -8,10 +8,11 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import homeStyle from "./homeStyle";
 import { StackHomeNavigation } from "../../routes/homeNavigation";
+import dayjs from "dayjs";
 
 import type { RootState } from "../../state/store";
 import { useDispatch } from "react-redux";
-import { create, deleteAll, addExamples } from "../../state/goalsSlicer";
+import { create, deleteAll, addExamples, updateItGoalPortion } from "../../state/goalsSlicer";
 import Card from "./components/card";
 import NormalView from "./components/normalView";
 import SetsView from "./components/setsView";
@@ -25,10 +26,41 @@ type homeNavigationProp = StackNavigationProp<StackHomeNavigation>;
 const Home: React.FC = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<homeNavigationProp>();
-  const myGoals = useSelector((state: RootState) => state.goals.value);
+  const myGoals: Goal[] = useSelector((state: RootState) => state.goals.value);
   const dispatch = useDispatch();
   const [modalShown, toggleModal] = useState<boolean>(false);
   const [currentGoal, setCurrentGoal] = useState<Goal | null>(null);
+  const [presentGoals, setPresentGoal] = useState(
+    myGoals.filter(
+      (goal) =>
+        dayjs().isAfter(goal.goalPortions[goal.itGoalPortion].initialDate) &&
+        dayjs().isBefore(goal.goalPortions[goal.itGoalPortion].finalDate)
+    )
+  );
+
+  //filters the goals that can appear
+  useEffect(() => {
+    const id = setInterval(() => {
+      setPresentGoal(
+        myGoals.filter(
+          (goal) =>
+            dayjs().isAfter(goal.goalPortions[goal.itGoalPortion].initialDate) &&
+            dayjs().isBefore(goal.goalPortions[goal.itGoalPortion].finalDate)
+        )
+      );
+    }, 1000);
+    return () => clearInterval(id);
+  }, [myGoals]);
+
+  //increases it goal portion
+  useEffect(() => {
+    dispatch(updateItGoalPortion());
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => dispatch(updateItGoalPortion()), 1000 * 5);
+    return () => clearInterval(id);
+  }, []);
 
   const openModal = (goal: Goal) => {
     toggleModal(true);
@@ -69,11 +101,11 @@ const Home: React.FC = () => {
         <View style={homeStyle.goalsSectionText}>
           <Text style={homeStyle.titleText}>{t("home:activeGoals")}</Text>
           <View style={homeStyle.roundScore}>
-            <Text>{myGoals.length}</Text>
+            <Text>{presentGoals.length}</Text>
           </View>
         </View>
         <ScrollView style={homeStyle.goalsSectionCards} horizontal={true}>
-          {myGoals.map((goal: Goal) => (
+          {presentGoals.map((goal: Goal) => (
             <Card key={goal.id} goal={goal} pressAction={openModal} />
           ))}
         </ScrollView>

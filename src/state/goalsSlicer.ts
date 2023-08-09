@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import testValues from "../constants/testValues";
+import dayjs from "dayjs";
 
 export interface GoalsState {
   value: Goal[];
@@ -32,11 +33,23 @@ export const goalsSlice = createSlice({
     changeMeasureGoalPortion: (state, action: PayloadAction<MeasureGoalPortion>) => {
       state.value = state.value.map((item) => {
         if (item.id === action.payload.id) {
+          let newCompletionState: CompletionState = "waiting";
+          if (item.measure === null) {
+            newCompletionState = action.payload.measure === 1 ? "completed" : "partial";
+          } else if (item.measure === "sets") {
+            newCompletionState = action.payload.measure === item.sets ? "completed" : "partial";
+          } else if (item.measure === "time") {
+            newCompletionState = action.payload.measure === item.time ? "completed" : "partial";
+          }
           return {
             ...item,
             goalPortions: [
               ...item.goalPortions.slice(0, item.itGoalPortion),
-              { ...item.goalPortions[item.itGoalPortion], measure: action.payload.measure },
+              {
+                ...item.goalPortions[item.itGoalPortion],
+                measure: action.payload.measure,
+                completionState: newCompletionState,
+              },
               ...item.goalPortions.slice(item.itGoalPortion + 1),
             ],
           };
@@ -45,9 +58,34 @@ export const goalsSlice = createSlice({
         }
       });
     },
+    updateItGoalPortion: (state) => {
+      state.value = state.value.map((item) => {
+        if (item.completed) {
+          return item;
+        }
+        if (item.itGoalPortion === item.goalPortions.length) {
+          return { ...item, completed: true };
+        }
+        if (dayjs().isAfter(item.goalPortions[item.itGoalPortion].finalDate)) {
+          if (item.goalPortions[item.itGoalPortion].completionState === "waiting") {
+            return {
+              ...item,
+              itGoalPortion: item.itGoalPortion + 1,
+              goalPortions: [
+                ...item.goalPortions.slice(0, item.itGoalPortion),
+                { ...item.goalPortions[item.itGoalPortion], completionState: "uncompleted" },
+                ...item.goalPortions.slice(item.itGoalPortion + 1),
+              ],
+            };
+          }
+          return { ...item, itGoalPortion: item.itGoalPortion + 1 };
+        }
+        return item;
+      });
+    },
   },
 });
 
-export const { create, deleteAll, addExamples, changeMeasureGoalPortion } = goalsSlice.actions;
+export const { create, deleteAll, addExamples, changeMeasureGoalPortion, updateItGoalPortion } = goalsSlice.actions;
 
 export default goalsSlice.reducer;

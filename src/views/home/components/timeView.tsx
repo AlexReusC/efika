@@ -46,8 +46,6 @@ const TimeView: React.FC<TimeViewProps> = ({ goal }) => {
     };
   }, []);
 
-  console.log(insideMeasure);
-
   return (
     <View style={TimeViewStyle.view}>
       {false ? (
