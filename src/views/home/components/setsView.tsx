@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { changeMeasureGoalPortion } from "../../../state/goalsSlicer";
 import colors from "../../../constants/colors";
 
@@ -10,11 +11,12 @@ interface SetsViewProps {
 }
 
 const SetsView: React.FC<SetsViewProps> = ({ goal }) => {
-  const dispatch = useDispatch();
   const [insideMeasure, setInsideMeasure] = useState<number | undefined>(
     goal?.goalPortions[goal.itGoalPortion].measure
   );
   const [setsTextInput, setSetsTextInput] = useState<string | null>(null);
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const changeSetsText = (text: string) => {
     if (text.length == 0) {
@@ -37,15 +39,15 @@ const SetsView: React.FC<SetsViewProps> = ({ goal }) => {
   return (
     <View style={SetsViewStyle.view}>
       {goal?.sets === insideMeasure ? (
-        <Text style={SetsViewStyle.textCompleted}>Repetición completada</Text>
+        <Text style={SetsViewStyle.textCompleted}>{t("home:completedRepetition")}</Text>
       ) : (
         <View>
-          <Text style={SetsViewStyle.text}>Series hechas:</Text>
+          <Text style={SetsViewStyle.text}>{t("home:setsDone")}</Text>
           <Text style={SetsViewStyle.text}>
             {insideMeasure} / {goal?.sets}
           </Text>
           <View style={SetsViewStyle.space}></View>
-          <Text style={SetsViewStyle.text}>Agregar:</Text>
+          <Text style={SetsViewStyle.text}>{t("home:add")}</Text>
           <View style={SetsViewStyle.textInputAndButtonRow}>
             <View>
               <TextInput

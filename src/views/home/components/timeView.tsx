@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { CircularProgress } from "react-native-circular-progress";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -19,6 +20,7 @@ const TimeView: React.FC<TimeViewProps> = ({ goal }) => {
   );
   const insideMeasureRef = useRef<number | undefined>();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     let intervalId: NodeJS.Timer;
@@ -49,7 +51,7 @@ const TimeView: React.FC<TimeViewProps> = ({ goal }) => {
   return (
     <View style={TimeViewStyle.view}>
       {false ? (
-        <Text style={TimeViewStyle.textCompleted}>Repetición completada</Text>
+        <Text style={TimeViewStyle.textCompleted}>{t("home:completedRepetition")}</Text>
       ) : (
         <View>
           <CircularProgress

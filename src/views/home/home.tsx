@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 
 import type { RootState } from "../../state/store";
 import { useDispatch } from "react-redux";
-import { create, deleteAll, addExamples, updateItGoalPortion } from "../../state/goalsSlicer";
+import { deleteAll, addExamples, updateItGoalPortion } from "../../state/goalsSlicer";
 import Card from "./components/card";
 import NormalView from "./components/normalView";
 import SetsView from "./components/setsView";
@@ -58,7 +58,7 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const id = setInterval(() => dispatch(updateItGoalPortion()), 1000 * 5);
+    const id = setInterval(() => dispatch(updateItGoalPortion()), 1000 * 2);
     return () => clearInterval(id);
   }, []);
 
