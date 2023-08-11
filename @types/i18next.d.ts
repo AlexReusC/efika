@@ -7,6 +7,7 @@ interface I18Namespaces {
   home: typeof es.home;
   createGoal: typeof es.createGoal;
   progress: typeof es.progress;
+  settings: typeof es.settings;
 }
 
 declare module "i18next" {

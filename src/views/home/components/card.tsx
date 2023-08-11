@@ -27,8 +27,6 @@ const Card: React.FC<CardProps> = ({ goal, pressAction }) => {
     fill = currentMeasure / (goal.time || 1);
   }
 
-  console.log(i18n.language);
-
   return (
     <TouchableOpacity onPress={() => pressAction(goal)} style={cardStyle.card}>
       <View style={cardStyle.topPart}>
