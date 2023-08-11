@@ -20,6 +20,7 @@ import TimeView from "./components/timeView";
 
 import Colors from "../../constants/colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import colors from "../../constants/colors";
 
 type homeNavigationProp = StackNavigationProp<StackHomeNavigation>;
 
@@ -83,11 +84,11 @@ const Home: React.FC = () => {
       <View style={homeStyle.titleSection}>
         <View style={homeStyle.titleSectionIcon}>
           <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-            <Ionicons name={"settings-outline"} size={32} />
+            <Ionicons name={"settings-outline"} size={32} color={colors.white} />
           </TouchableOpacity>
         </View>
         <View style={homeStyle.titleSectionText}>
-          <Text style={homeStyle.titleText}>{t("home:ready")}</Text>
+          <Text style={homeStyle.titleTextTop}>{t("home:ready")}</Text>
           <Text style={homeStyle.titleText}>{t("home:toContinue")}</Text>
           <TouchableOpacity onPress={() => dispatch(deleteAll())}>
             <Text>Delete All (Debug)</Text>

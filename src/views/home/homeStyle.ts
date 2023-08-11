@@ -15,8 +15,14 @@ const homeStyle = StyleSheet.create({
     flexDirection: "row-reverse",
   },
   titleSectionText: {},
+  titleTextTop: {
+    fontSize: 28,
+    color: Colors.white,
+    fontWeight: "600",
+  },
   titleText: {
     fontSize: 25,
+    color: Colors.white,
   },
   roundScore: {
     backgroundColor: Colors.orange,
