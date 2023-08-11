@@ -1,5 +1,7 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import Colors from "../../constants/colors";
+
+const ScreenWidth = Dimensions.get("window").width;
 
 const homeStyle = StyleSheet.create({
   screen: {
@@ -23,6 +25,9 @@ const homeStyle = StyleSheet.create({
   titleText: {
     fontSize: 25,
     color: Colors.white,
+  },
+  titleTextGoals: {
+    fontSize: 25,
   },
   roundScore: {
     backgroundColor: Colors.orange,
@@ -73,6 +78,16 @@ const homeStyle = StyleSheet.create({
     backgroundColor: Colors.mainBlue,
     justifyContent: "center",
     alignItems: "center",
+  },
+  noTasksView: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: "30%",
+    width: ScreenWidth - 0.14 * ScreenWidth,
+  },
+  noTasksText: {
+    fontSize: 20,
+    fontWeight: "300",
   },
 });
 

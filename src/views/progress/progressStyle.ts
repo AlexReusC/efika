@@ -1,10 +1,15 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import Colors from "../../constants/colors";
 
 const progressStyle = StyleSheet.create({
   mainView: {
     backgroundColor: Colors.white,
     height: "100%",
+  },
+  noTasksView: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: "40%",
   },
   header: {
     marginHorizontal: "5%",

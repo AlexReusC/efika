@@ -4,11 +4,13 @@ import Modal from "react-native-modal";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../state/store";
 import { useTranslation } from "react-i18next";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import progressStyle from "./progressStyle";
 import GoalProgressCard from "./components/goalProgressCard";
 import { categoriesUtil } from "../createGoal/utils/createGoalUtils";
 import ModalContent from "./components/modalContent";
+import colors from "../../constants/colors";
 
 const categoriesIcons = categoriesUtil.reduce<Record<Category, any>>((r, o) => {
   r[o.name] = o.icon;
@@ -34,37 +36,47 @@ const Progress: React.FC = () => {
         <ModalContent currentGoal={currentGoal} onClose={toggleModal} />
       </Modal>
       <View style={progressStyle.mainView}>
-        <View style={progressStyle.header}>
-          <Text style={progressStyle.headerText}>{t("progress:selectGoal")}</Text>
-        </View>
-        <View style={progressStyle.goals}>
-          {currentGoals.length !== 0 ? (
-            <View>
-              <Text style={progressStyle.title}>{t("progress:current")}</Text>
-              {currentGoals.map((goal: Goal) => (
-                <GoalProgressCard
-                  key={goal.id}
-                  goal={goal}
-                  categoriesIconsObj={categoriesIcons}
-                  pressAction={openModal}
-                />
-              ))}
+        {currentGoals.length !== 0 && completedGoals.length !== 0 ? (
+          <>
+            <View style={progressStyle.header}>
+              <Text style={progressStyle.headerText}>{t("progress:selectGoal")}</Text>
             </View>
-          ) : null}
-          {completedGoals.length !== 0 ? (
-            <View>
-              <Text style={progressStyle.title}>{t("progress:past")}</Text>
-              {completedGoals.map((goal: Goal) => (
-                <GoalProgressCard
-                  key={goal.id}
-                  goal={goal}
-                  categoriesIconsObj={categoriesIcons}
-                  pressAction={openModal}
-                />
-              ))}
+            <View style={progressStyle.goals}>
+              {currentGoals.length !== 0 ? (
+                <View>
+                  <Text style={progressStyle.title}>{t("progress:current")}</Text>
+                  {currentGoals.map((goal: Goal) => (
+                    <GoalProgressCard
+                      key={goal.id}
+                      goal={goal}
+                      categoriesIconsObj={categoriesIcons}
+                      pressAction={openModal}
+                    />
+                  ))}
+                </View>
+              ) : null}
+              {completedGoals.length !== 0 ? (
+                <View>
+                  <Text style={progressStyle.title}>{t("progress:past")}</Text>
+                  {completedGoals.map((goal: Goal) => (
+                    <GoalProgressCard
+                      key={goal.id}
+                      goal={goal}
+                      categoriesIconsObj={categoriesIcons}
+                      pressAction={openModal}
+                    />
+                  ))}
+                </View>
+              ) : null}
             </View>
-          ) : null}
-        </View>
+          </>
+        ) : (
+          <View style={progressStyle.noTasksView}>
+            <Ionicons name={"add-circle-outline"} color={colors.gray} size={90} />
+            <Text style={progressStyle.headerText}>{t("progress:noGoalsYet")}</Text>
+            <Text style={progressStyle.headerText}>{t("progress:addSomeWith")}</Text>
+          </View>
+        )}
       </View>
     </ScrollView>
   );

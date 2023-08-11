@@ -93,22 +93,27 @@ const Home: React.FC = () => {
           <TouchableOpacity onPress={() => dispatch(deleteAll())}>
             <Text>Delete All (Debug)</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => dispatch(addExamples())}>
+          {/* <TouchableOpacity onPress={() => dispatch(addExamples())}>
             <Text>Populate (Debug)</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
       <View style={homeStyle.goalsSection}>
         <View style={homeStyle.goalsSectionText}>
-          <Text style={homeStyle.titleText}>{t("home:activeGoals")}</Text>
+          <Text style={homeStyle.titleTextGoals}>{t("home:activeGoals")}</Text>
           <View style={homeStyle.roundScore}>
             <Text>{presentGoals.length}</Text>
           </View>
         </View>
         <ScrollView style={homeStyle.goalsSectionCards} horizontal={true}>
-          {presentGoals.map((goal: Goal) => (
-            <Card key={goal.id} goal={goal} pressAction={openModal} />
-          ))}
+          {presentGoals.length !== 0 ? (
+            presentGoals.map((goal: Goal) => <Card key={goal.id} goal={goal} pressAction={openModal} />)
+          ) : (
+            <View style={homeStyle.noTasksView}>
+              <Ionicons name="checkmark-circle-outline" size={90} color={colors.gray} />
+              <Text style={homeStyle.noTasksText}>{t("home:noGoalToday")}</Text>
+            </View>
+          )}
         </ScrollView>
       </View>
     </View>

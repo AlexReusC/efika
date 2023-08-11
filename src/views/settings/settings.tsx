@@ -17,10 +17,10 @@ const Settings: React.FC = () => {
         <View style={SettingsStyle.viewText}>
           <Text style={SettingsStyle.subtitle}>{t("settings:changeLanguage")}</Text>
         </View>
-        <TouchableOpacity style={SettingsStyle.viewText}>
+        <TouchableOpacity style={SettingsStyle.viewText} onPress={() => i18n.changeLanguage("en")}>
           <Text style={SettingsStyle.normalTextLanguages}>English</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={SettingsStyle.viewText}>
+        <TouchableOpacity style={SettingsStyle.viewText} onPress={() => i18n.changeLanguage("es")}>
           <Text style={SettingsStyle.normalTextLanguages}>Español</Text>
         </TouchableOpacity>
       </View>

@@ -5,4 +5,5 @@ export default {
   completedRepetition: "Repetición completada",
   setsDone: "Series hechas",
   add: "Agregar:",
+  noGoalToday: "Ninguna meta hoy",
 };

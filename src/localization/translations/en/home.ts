@@ -5,4 +5,5 @@ export default {
   completedRepetition: "Repetition completed",
   setsDone: "Sets done",
   add: "Add",
+  noGoalToday: "No goals today",
 };

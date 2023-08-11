@@ -7,4 +7,6 @@ export default {
   completed: "Completados",
   partial: "Parciales",
   uncompleted: "Incompletos",
+  noGoalsYet: "Ninguna meta aún",
+  addSomeWith: "Añade una con el botón de enmedio",
 };

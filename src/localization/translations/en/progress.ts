@@ -7,4 +7,6 @@ export default {
   completed: "Completed",
   partial: "Partial",
   uncompleted: "Uncompleted",
+  noGoalsYet: "No goals yet",
+  addSomeWith: "Add some with the middle button",
 };
