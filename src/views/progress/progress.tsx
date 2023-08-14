@@ -36,7 +36,7 @@ const Progress: React.FC = () => {
         <ModalContent currentGoal={currentGoal} onClose={toggleModal} />
       </Modal>
       <View style={progressStyle.mainView}>
-        {currentGoals.length !== 0 && completedGoals.length !== 0 ? (
+        {currentGoals.length !== 0 || completedGoals.length !== 0 ? (
           <>
             <View style={progressStyle.header}>
               <Text style={progressStyle.headerText}>{t("progress:selectGoal")}</Text>
