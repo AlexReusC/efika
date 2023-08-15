@@ -81,7 +81,7 @@ const createGoalStyle = StyleSheet.create({
   },
   chipsArea: {
     width: "80%",
-    height: "40%",
+    paddingVertical: "3%",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "flex-start",
@@ -106,11 +106,9 @@ const createGoalStyle = StyleSheet.create({
   },
   activeChipText: {
     color: colors.white,
-    fontSize: 18,
   },
   inactiveChipText: {
     color: colors.black,
-    fontSize: 18,
   },
   measureTypeArea: {
     flexDirection: "row",
