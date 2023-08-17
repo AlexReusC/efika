@@ -3,12 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import colors from "../../constants/colors";
+import FocusAwareStatusBar from "../../components/focusAwareStatusBar";
 
 const Settings: React.FC = () => {
   const { t, i18n } = useTranslation();
 
   return (
     <View>
+      <FocusAwareStatusBar backgroundColor={colors.white} barStyle={"dark-content"} />
       <View style={SettingsStyle.header}>
         <Ionicons name="language" size={33} />
         <Text style={SettingsStyle.title}>{t("settings:languages")}</Text>

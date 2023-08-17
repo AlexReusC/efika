@@ -16,6 +16,8 @@ import createGoal from "./utils/createGoal";
 import filterGoalAttrs from "./utils/filterGoalAttrs";
 import { categoriesUtil, frequenciesUtil, measuresUtil, daysOfWeekUtil } from "./utils/createGoalUtils";
 import Colors from "../../constants/colors";
+import FocusAwareStatusBar from "../../components/focusAwareStatusBar";
+import colors from "../../constants/colors";
 
 type TabNavigationProp = BottomTabNavigationProp<TabBarNavigation>;
 
@@ -207,6 +209,7 @@ const CreateGoal: React.FC = () => {
 
   return (
     <ScrollView style={createGoalStyle.screen}>
+      <FocusAwareStatusBar backgroundColor={colors.softBlue} barStyle={"dark-content"} />
       <Modal isVisible={timeModalShown} onBackdropPress={() => toggleTimeModal(false)} animationOut={"fadeOutDownBig"}>
         <View style={createGoalStyle.modalSection}>
           <Text>Escoge tiempo por repetición:</Text>

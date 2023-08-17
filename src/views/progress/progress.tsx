@@ -11,6 +11,7 @@ import GoalProgressCard from "./components/goalProgressCard";
 import { categoriesUtil } from "../createGoal/utils/createGoalUtils";
 import ModalContent from "./components/modalContent";
 import colors from "../../constants/colors";
+import FocusAwareStatusBar from "../../components/focusAwareStatusBar";
 
 const categoriesIcons = categoriesUtil.reduce<Record<Category, any>>((r, o) => {
   r[o.name] = o.icon;
@@ -32,7 +33,7 @@ const Progress: React.FC = () => {
 
   return (
     <ScrollView style={progressStyle.mainView}>
-      <StatusBar backgroundColor={colors.black} />
+      <FocusAwareStatusBar backgroundColor={colors.white} barStyle={"dark-content"} />
       <Modal isVisible={modalShown} onBackdropPress={() => toggleModal(false)} animationOut={"fadeOutDownBig"}>
         <ModalContent currentGoal={currentGoal} onClose={toggleModal} />
       </Modal>

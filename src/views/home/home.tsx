@@ -19,8 +19,6 @@ import SetsView from "./components/setsView";
 import TimeView from "./components/timeView";
 import FocusAwareStatusBar from "../../components/focusAwareStatusBar";
 
-import Colors from "../../constants/colors";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../../constants/colors";
 
 type homeNavigationProp = StackNavigationProp<StackHomeNavigation>;
@@ -78,7 +76,7 @@ const Home: React.FC = () => {
           {currentGoal?.measure === "sets" && <SetsView goal={currentGoal} />}
           {currentGoal?.measure === "time" && <TimeView goal={currentGoal} />}
           <TouchableOpacity style={homeStyle.roundButton} onPress={() => toggleModal(false)}>
-            <Ionicons name={"close-outline"} color={Colors.white} />
+            <Ionicons name={"close-outline"} color={colors.white} />
           </TouchableOpacity>
         </View>
       </Modal>
