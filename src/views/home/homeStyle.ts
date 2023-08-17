@@ -18,16 +18,20 @@ const homeStyle = StyleSheet.create({
   },
   titleSectionText: {},
   titleTextTop: {
-    fontSize: 28,
+    fontSize: 35,
     color: Colors.white,
     fontWeight: "600",
   },
   titleText: {
-    fontSize: 25,
+    fontSize: 32,
     color: Colors.white,
   },
   titleTextGoals: {
     fontSize: 25,
+    fontWeight: "700",
+  },
+  lengthGoals: {
+    fontWeight: "700",
   },
   roundScore: {
     backgroundColor: Colors.orange,

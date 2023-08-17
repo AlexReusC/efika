@@ -101,7 +101,7 @@ const Home: React.FC = () => {
         <View style={homeStyle.goalsSectionText}>
           <Text style={homeStyle.titleTextGoals}>{t("home:activeGoals")}</Text>
           <View style={homeStyle.roundScore}>
-            <Text>{presentGoals.length}</Text>
+            <Text style={homeStyle.lengthGoals}>{presentGoals.length}</Text>
           </View>
         </View>
         <ScrollView style={homeStyle.goalsSectionCards} horizontal={true}>
