@@ -23,4 +23,10 @@ const LANGUAGE_DETECTOR: LanguageDetectorAsyncModule = {
 i18n
   .use(LANGUAGE_DETECTOR)
   .use(initReactI18next)
-  .init({ lng: "es", ns: ["navigation", "home", "createGoal", "progress", "settings"], defaultNS, resources });
+  .init({
+    compatibilityJSON: "v3",
+    lng: "es",
+    ns: ["navigation", "home", "createGoal", "progress", "settings"],
+    defaultNS,
+    resources,
+  });
