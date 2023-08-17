@@ -48,7 +48,7 @@ const Home: React.FC = () => {
             dayjs().isBefore(goal.goalPortions[goal.itGoalPortion].finalDate)
         )
       );
-    }, 500);
+    }, 1000 * 2);
     return () => clearInterval(id);
   }, [myGoals]);
 

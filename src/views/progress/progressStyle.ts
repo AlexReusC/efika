@@ -30,7 +30,7 @@ const progressStyle = StyleSheet.create({
     borderRadius: 100,
     width: 40,
     height: 40,
-    backgroundColor: Colors.lightBlue,
+    backgroundColor: Colors.mainBlue,
     justifyContent: "center",
     alignItems: "center",
   },

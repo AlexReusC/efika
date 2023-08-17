@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, TextInput, ScrollView } from "react-nativ
 import { Chip, Badge } from "@react-native-material/core";
 import Modal from "react-native-modal";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
@@ -22,6 +23,9 @@ import colors from "../../constants/colors";
 type TabNavigationProp = BottomTabNavigationProp<TabBarNavigation>;
 
 const CreateGoal: React.FC = () => {
+  const [helpRepetitionsShown, toggleHelpRepetitions] = useState(false);
+  const [helpFrequencyShown, toggleHelpFrequency] = useState(false);
+  const [helpMeasureShown, toggleHelpMeasure] = useState(false);
   const [timeModalShown, toggleTimeModal] = useState(false);
   const [setsModalShown, toggleSetsModal] = useState(false);
   const [daysShown, toggleDaysShown] = useState(false);
@@ -210,9 +214,63 @@ const CreateGoal: React.FC = () => {
   return (
     <ScrollView style={createGoalStyle.screen}>
       <FocusAwareStatusBar backgroundColor={colors.softBlue} barStyle={"dark-content"} />
+      <Modal
+        isVisible={helpRepetitionsShown}
+        onBackdropPress={() => toggleHelpRepetitions(false)}
+        animationOut={"fadeOutDownBig"}
+      >
+        <View style={createGoalStyle.modalSection}>
+          <View style={createGoalStyle.titleView}>
+            <Text style={createGoalStyle.titleModal}>{t("createGoal:repetitionsAlone")}</Text>
+          </View>
+          <View style={createGoalStyle.textModalView}>
+            <Text style={createGoalStyle.helpText}>{t("createGoal:repetitionsHelp")}</Text>
+          </View>
+          <TouchableOpacity style={createGoalStyle.roundButton} onPress={() => toggleHelpRepetitions(false)}>
+            <Ionicons color={Colors.white} name={"close-outline"} />
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
+      <Modal
+        isVisible={helpFrequencyShown}
+        onBackdropPress={() => toggleHelpFrequency(false)}
+        animationOut={"fadeOutDownBig"}
+      >
+        <View style={createGoalStyle.modalSection}>
+          <View style={createGoalStyle.titleView}>
+            <Text style={createGoalStyle.titleModal}>{t("createGoal:frequency")}</Text>
+          </View>
+          <View style={createGoalStyle.textModalView}>
+            <Text style={createGoalStyle.helpText}>{t("createGoal:frequencyHelp")}</Text>
+          </View>
+          <TouchableOpacity style={createGoalStyle.roundButton} onPress={() => toggleHelpFrequency(false)}>
+            <Ionicons color={Colors.white} name={"close-outline"} />
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
+      <Modal
+        isVisible={helpMeasureShown}
+        onBackdropPress={() => toggleHelpMeasure(false)}
+        animationOut={"fadeOutDownBig"}
+      >
+        <View style={createGoalStyle.modalSection}>
+          <View style={createGoalStyle.titleView}>
+            <Text style={createGoalStyle.titleModal}>{t("createGoal:measureAlone")}</Text>
+          </View>
+          <View style={createGoalStyle.textModalView}>
+            <Text style={createGoalStyle.helpText}>{t("createGoal:measureHelp")}</Text>
+          </View>
+          <TouchableOpacity style={createGoalStyle.roundButton} onPress={() => toggleHelpMeasure(false)}>
+            <Ionicons color={Colors.white} name={"close-outline"} />
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
       <Modal isVisible={timeModalShown} onBackdropPress={() => toggleTimeModal(false)} animationOut={"fadeOutDownBig"}>
         <View style={createGoalStyle.modalSection}>
-          <Text>Escoge tiempo por repetición:</Text>
+          <Text>{t("createGoal:chooseTime")}</Text>
           <View style={createGoalStyle.timeInputSection}>
             <TextInput
               value={tmpMinutes !== null ? tmpMinutes : ""}
@@ -268,7 +326,7 @@ const CreateGoal: React.FC = () => {
 
       <Modal isVisible={setsModalShown} onBackdropPress={() => toggleSetsModal(false)} animationOut={"fadeOutDownBig"}>
         <View style={createGoalStyle.modalSection}>
-          <Text>Escoge el número de series:</Text>
+          <Text>{t("createGoal:chooseNumberSeries")}</Text>
           <View>
             <TextInput
               placeholder="00"
@@ -307,7 +365,7 @@ const CreateGoal: React.FC = () => {
               if (text.length === 0) {
                 setName(text);
               } else {
-                const regexRule = /^[\w]+$/;
+                const regexRule = /^(\w+\s?)*$/;
                 if (regexRule.test(text)) {
                   setName(text);
                 }
@@ -322,7 +380,12 @@ const CreateGoal: React.FC = () => {
         <View style={createGoalStyle.numberOfRepetitions}>
           <View>
             <Text style={createGoalStyle.numberRepetitionsText}>{t("createGoal:numberOf")}</Text>
-            <Text style={createGoalStyle.numberRepetitionsText}>{t("createGoal:repetitions")}</Text>
+            <View style={createGoalStyle.iconAndText}>
+              <Text style={createGoalStyle.numberRepetitionsText}>{t("createGoal:repetitions")}</Text>
+              <TouchableOpacity onPress={() => toggleHelpRepetitions(true)}>
+                <FontAwesome name="question-circle" size={20} color={colors.white} />
+              </TouchableOpacity>
+            </View>
           </View>
           <TextInput
             keyboardType="decimal-pad"
@@ -355,7 +418,13 @@ const CreateGoal: React.FC = () => {
       </View>
       <View style={createGoalStyle.options}>
         <View style={createGoalStyle.optionsBlock}>
-          <Text style={createGoalStyle.title}>{t("createGoal:frequency")}</Text>
+          <View style={createGoalStyle.titleText}>
+            <Text style={createGoalStyle.title}>{t("createGoal:frequency")}</Text>
+            <TouchableOpacity onPress={() => toggleHelpFrequency(true)}>
+              <FontAwesome name="question-circle" size={25} color={colors.strongGray} />
+            </TouchableOpacity>
+          </View>
+
           <View style={createGoalStyle.measureTypeArea}>
             {frequencies.map((frequency) => (
               <TouchableOpacity
@@ -392,7 +461,12 @@ const CreateGoal: React.FC = () => {
           ) : null}
         </View>
         <View style={createGoalStyle.optionsBlock}>
-          <Text style={createGoalStyle.title}>{t("createGoal:measure")}</Text>
+          <View style={createGoalStyle.titleText}>
+            <Text style={createGoalStyle.title}>{t("createGoal:measure")}</Text>
+            <TouchableOpacity onPress={() => toggleHelpMeasure(true)}>
+              <FontAwesome name="question-circle" size={25} color={colors.strongGray} />
+            </TouchableOpacity>
+          </View>
           <View style={createGoalStyle.measureTypeArea}>
             {measures.map((measure) => (
               <TouchableOpacity

@@ -28,7 +28,7 @@ const createGoalStyle = StyleSheet.create({
     borderRadius: 100,
     width: 40,
     height: 40,
-    backgroundColor: colors.lightBlue,
+    backgroundColor: colors.mainBlue,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -69,6 +69,13 @@ const createGoalStyle = StyleSheet.create({
   },
   numberRepetitionsText: {
     fontSize: 20,
+  },
+  titleView: {
+    marginBottom: "5%",
+  },
+  titleModal: {
+    fontSize: 26,
+    fontWeight: "500",
   },
   changeRepetitionsButton: {
     borderWidth: 1,
@@ -130,6 +137,14 @@ const createGoalStyle = StyleSheet.create({
   title: {
     fontSize: 27,
   },
+  titleText: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  iconAndText: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
   dayOfWeekArea: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -178,6 +193,12 @@ const createGoalStyle = StyleSheet.create({
   createGoalButtonTextInactive: {
     fontSize: 27,
     color: colors.white,
+  },
+  textModalView: {
+    marginBottom: "10%",
+  },
+  helpText: {
+    fontSize: 18,
   },
 });
 
