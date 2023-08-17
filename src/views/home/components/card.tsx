@@ -51,7 +51,7 @@ const Card: React.FC<CardProps> = ({ goal, pressAction }) => {
           tintColor={Colors.black}
           duration={400}
         >
-          {(fill) => <Text style={cardStyle.endDate}>{fill} %</Text>}
+          {() => <Text style={cardStyle.endDate}>{Math.trunc(fill * 100)} %</Text>}
         </AnimatedCircularProgress>
       </View>
       <View>
