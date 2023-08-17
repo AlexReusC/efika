@@ -163,7 +163,7 @@ const createGoalStyle = StyleSheet.create({
   },
   createGoalButtonActive: {
     borderWidth: 1,
-    backgroundColor: colors.lightBlue,
+    backgroundColor: colors.mainBlue,
     borderRadius: 50,
     padding: 10,
   },

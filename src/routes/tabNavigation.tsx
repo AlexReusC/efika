@@ -66,6 +66,7 @@ const TabNavigation = () => {
         name="Progress"
         component={Progress}
         options={{
+          title: t("navigation:Progress"),
           tabBarIcon: ({ focused }) => (
             <View style={{ alignItems: "center", justifyContent: "center" }}>
               <Ionicons size={20} name={focused ? "stats-chart-sharp" : "stats-chart-outline"} />
@@ -73,7 +74,7 @@ const TabNavigation = () => {
             </View>
           ),
           headerTitleStyle: {
-            fontSize: 36,
+            fontSize: 30,
             color: "#5D4D4A",
           },
           headerStyle: {
