@@ -1,10 +1,11 @@
 import React from "react";
-import { TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View, Text, Dimensions } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import Progress from "../views/progress/progress";
 import HomeNavigation from "./homeNavigation";
+
 import CreateGoal from "../views/createGoal/createGoal";
 import Colors from "../constants/colors";
 
@@ -14,6 +15,9 @@ export type TabBarNavigation = {
   Progress: undefined;
 };
 
+const ScreenWidth = Dimensions.get("window").width;
+const ScreenWidth15 = ScreenWidth * 0.15;
+
 const Tab = createBottomTabNavigator();
 
 const CustomTabBarButton = ({ children, onPress }: any): any => (
@@ -21,7 +25,7 @@ const CustomTabBarButton = ({ children, onPress }: any): any => (
     style={{ top: -20, justifyContent: "center", alignItems: "center", width: "15%" }}
     onPress={onPress}
   >
-    <View style={{ width: "100%", height: "100%", borderRadius: 35, backgroundColor: Colors.mainBlue }}>
+    <View style={{ width: "100%", height: "100%", borderRadius: ScreenWidth15 / 2, backgroundColor: Colors.mainBlue }}>
       {children}
     </View>
   </TouchableOpacity>

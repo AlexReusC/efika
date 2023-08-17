@@ -31,7 +31,7 @@ const homeStyle = StyleSheet.create({
   },
   roundScore: {
     backgroundColor: Colors.orange,
-    borderRadius: 100,
+    borderRadius: 40 / 2,
     width: 40,
     height: 40,
     justifyContent: "center",
