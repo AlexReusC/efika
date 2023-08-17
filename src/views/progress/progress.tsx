@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, StatusBar } from "react-native";
 import Modal from "react-native-modal";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../state/store";
@@ -32,6 +32,7 @@ const Progress: React.FC = () => {
 
   return (
     <ScrollView style={progressStyle.mainView}>
+      <StatusBar backgroundColor={colors.black} />
       <Modal isVisible={modalShown} onBackdropPress={() => toggleModal(false)} animationOut={"fadeOutDownBig"}>
         <ModalContent currentGoal={currentGoal} onClose={toggleModal} />
       </Modal>

@@ -5,21 +5,30 @@ const cardStyle = StyleSheet.create({
   card: {
     marginHorizontal: 5,
     paddingHorizontal: "3%",
-    paddingVertical: "5%",
+    paddingVertical: "4%",
     height: "80%",
     aspectRatio: 0.6,
     backgroundColor: Colors.mainBlue,
     borderRadius: 15,
   },
   topPart: {
-    height: "20%",
+    height: "30%",
+    flexDirection: "row",
+  },
+  leftTopPart: {
+    width: "70%",
+  },
+  rightTopPart: {
+    width: "30%",
+    alignContent: "center",
+    justifyContent: "center",
   },
   middlePart: {
     alignItems: "center",
-    height: "60%",
+    height: "55%",
   },
   bottomPart: {
-    height: "20%",
+    height: "15%",
   },
   title: {
     color: Colors.white,

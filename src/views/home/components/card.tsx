@@ -2,10 +2,12 @@ import React from "react";
 import { TouchableOpacity, View, Text } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import cardStyle from "./cardStyle";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 import Colors from "../../../constants/colors";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
+import { categoriesUtil } from "../../createGoal/utils/createGoalUtils";
 import en from "dayjs/locale/en";
 import es from "dayjs/locale/es";
 
@@ -13,6 +15,11 @@ interface CardProps {
   goal: Goal;
   pressAction: (goal: Goal) => void;
 }
+
+const categoriesIcons = categoriesUtil.reduce<Record<Category, any>>((r, o) => {
+  r[o.name] = o.icon;
+  return r;
+}, {} as Record<Category, any>);
 
 const Card: React.FC<CardProps> = ({ goal, pressAction }) => {
   const { t, i18n } = useTranslation();
@@ -30,7 +37,9 @@ const Card: React.FC<CardProps> = ({ goal, pressAction }) => {
   return (
     <TouchableOpacity onPress={() => pressAction(goal)} style={cardStyle.card}>
       <View style={cardStyle.topPart}>
-        <Text style={cardStyle.title}>{goal.name}</Text>
+        <Text style={cardStyle.title} numberOfLines={2}>
+          {goal.name} <MaterialCommunityIcons name={categoriesIcons[goal.category]} size={27} />
+        </Text>
       </View>
       <View style={cardStyle.middlePart}>
         <AnimatedCircularProgress

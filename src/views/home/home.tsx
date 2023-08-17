@@ -17,6 +17,7 @@ import Card from "./components/card";
 import NormalView from "./components/normalView";
 import SetsView from "./components/setsView";
 import TimeView from "./components/timeView";
+import FocusAwareStatusBar from "../../components/focusAwareStatusBar";
 
 import Colors from "../../constants/colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -49,7 +50,7 @@ const Home: React.FC = () => {
             dayjs().isBefore(goal.goalPortions[goal.itGoalPortion].finalDate)
         )
       );
-    }, 1000);
+    }, 100);
     return () => clearInterval(id);
   }, [myGoals]);
 
@@ -59,7 +60,7 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const id = setInterval(() => dispatch(updateItGoalPortion()), 1000 * 2);
+    const id = setInterval(() => dispatch(updateItGoalPortion()), 2000);
     return () => clearInterval(id);
   }, []);
 
@@ -70,6 +71,7 @@ const Home: React.FC = () => {
 
   return (
     <View style={homeStyle.screen}>
+      <FocusAwareStatusBar backgroundColor={colors.mainBlue} />
       <Modal isVisible={modalShown} onBackdropPress={() => toggleModal(false)} animationOut={"fadeOutDownBig"}>
         <View style={homeStyle.modalSection}>
           {!currentGoal?.measure && <NormalView goal={currentGoal} />}
@@ -80,7 +82,6 @@ const Home: React.FC = () => {
           </TouchableOpacity>
         </View>
       </Modal>
-      <StatusBar />
       <View style={homeStyle.titleSection}>
         <View style={homeStyle.titleSectionIcon}>
           <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
