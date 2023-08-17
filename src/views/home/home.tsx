@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useIsFocused } from "@react-navigation/native";
 import homeStyle from "./homeStyle";
 import { StackHomeNavigation } from "../../routes/homeNavigation";
 import dayjs from "dayjs";
@@ -26,6 +27,7 @@ type homeNavigationProp = StackNavigationProp<StackHomeNavigation>;
 const Home: React.FC = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<homeNavigationProp>();
+  const isFocused = useIsFocused();
   const myGoals: Goal[] = useSelector((state: RootState) => state.goals.value);
   const dispatch = useDispatch();
   const [modalShown, toggleModal] = useState<boolean>(false);
@@ -40,16 +42,18 @@ const Home: React.FC = () => {
 
   //filters the goals that can appear
   useEffect(() => {
-    const id = setInterval(() => {
-      setPresentGoal(
-        myGoals.filter(
-          (goal) =>
-            dayjs().isAfter(goal.goalPortions[goal.itGoalPortion].initialDate) &&
-            dayjs().isBefore(goal.goalPortions[goal.itGoalPortion].finalDate)
-        )
-      );
-    }, 1000 * 2);
-    return () => clearInterval(id);
+    if (isFocused && !modalShown) {
+      const id = setInterval(() => {
+        setPresentGoal(
+          myGoals.filter(
+            (goal) =>
+              dayjs().isAfter(goal.goalPortions[goal.itGoalPortion].initialDate) &&
+              dayjs().isBefore(goal.goalPortions[goal.itGoalPortion].finalDate)
+          )
+        );
+      }, 100);
+      return () => clearInterval(id);
+    }
   }, [myGoals]);
 
   //increases it goal portion
