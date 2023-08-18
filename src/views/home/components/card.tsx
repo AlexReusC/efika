@@ -56,7 +56,7 @@ const Card: React.FC<CardProps> = ({ goal, pressAction }) => {
       </View>
       <View>
         <Text style={cardStyle.endDate}>
-          Termina:{" "}
+          {t("home:ends")}
           {dayjs(goal.goalPortions[goal.itGoalPortion].finalDate)
             .locale(i18n.language === "en" ? en : es)
             .format("MMM DD H:m")}

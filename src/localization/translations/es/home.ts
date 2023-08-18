@@ -6,4 +6,5 @@ export default {
   setsDone: "Series hechas",
   add: "Agregar:",
   noGoalToday: "Ninguna meta hoy",
+  ends: "Termina en: ",
 };

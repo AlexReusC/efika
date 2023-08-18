@@ -6,4 +6,5 @@ export default {
   setsDone: "Sets done",
   add: "Add",
   noGoalToday: "No goals today",
+  ends: "Ends: ",
 };
