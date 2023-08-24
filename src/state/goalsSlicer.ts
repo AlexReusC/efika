@@ -63,14 +63,12 @@ export const goalsSlice = createSlice({
         if (item.completed) {
           return item;
         }
-        if (item.itGoalPortion === item.goalPortions.length) {
-          return { ...item, completed: true };
-        }
         if (dayjs().isAfter(item.goalPortions[item.itGoalPortion].finalDate)) {
           if (item.goalPortions[item.itGoalPortion].completionState === "waiting") {
             return {
               ...item,
               itGoalPortion: item.itGoalPortion + 1,
+              completed: item.itGoalPortion + 1 === item.goalPortions.length ? true : false,
               goalPortions: [
                 ...item.goalPortions.slice(0, item.itGoalPortion),
                 { ...item.goalPortions[item.itGoalPortion], completionState: "uncompleted" },

@@ -19,6 +19,7 @@ import NormalView from "./components/normalView";
 import SetsView from "./components/setsView";
 import TimeView from "./components/timeView";
 import FocusAwareStatusBar from "../../components/focusAwareStatusBar";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import colors from "../../constants/colors";
 
@@ -33,11 +34,13 @@ const Home: React.FC = () => {
   const [modalShown, toggleModal] = useState<boolean>(false);
   const [currentGoal, setCurrentGoal] = useState<Goal | null>(null);
   const [presentGoals, setPresentGoal] = useState(
-    myGoals.filter(
-      (goal) =>
-        dayjs().isAfter(goal.goalPortions[goal.itGoalPortion].initialDate) &&
-        dayjs().isBefore(goal.goalPortions[goal.itGoalPortion].finalDate)
-    )
+    myGoals
+      .filter((goal) => !goal.completed)
+      .filter(
+        (goal) =>
+          dayjs().isAfter(goal.goalPortions[goal.itGoalPortion].initialDate) &&
+          dayjs().isBefore(goal.goalPortions[goal.itGoalPortion].finalDate)
+      )
   );
 
   //filters the goals that can appear
@@ -45,11 +48,13 @@ const Home: React.FC = () => {
     if (isFocused && !modalShown) {
       const id = setInterval(() => {
         setPresentGoal(
-          myGoals.filter(
-            (goal) =>
-              dayjs().isAfter(goal.goalPortions[goal.itGoalPortion].initialDate) &&
-              dayjs().isBefore(goal.goalPortions[goal.itGoalPortion].finalDate)
-          )
+          myGoals
+            .filter((goal) => !goal.completed)
+            .filter(
+              (goal) =>
+                dayjs().isAfter(goal.goalPortions[goal.itGoalPortion].initialDate) &&
+                dayjs().isBefore(goal.goalPortions[goal.itGoalPortion].finalDate)
+            )
         );
       }, 100);
       return () => clearInterval(id);
