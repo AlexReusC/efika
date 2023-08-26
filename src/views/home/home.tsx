@@ -98,9 +98,9 @@ const Home: React.FC = () => {
         <View style={homeStyle.titleSectionText}>
           <Text style={homeStyle.titleTextTop}>{t("home:ready")}</Text>
           <Text style={homeStyle.titleText}>{t("home:toContinue")}</Text>
-          <TouchableOpacity onPress={() => dispatch(deleteAll())}>
+          {/* <TouchableOpacity onPress={() => dispatch(deleteAll())}>
             <Text>Delete All (Debug)</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           {/* <TouchableOpacity onPress={() => dispatch(addExamples())}>
             <Text>Populate (Debug)</Text>
           </TouchableOpacity> */}
